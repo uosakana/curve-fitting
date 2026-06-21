@@ -1,0 +1,53 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local runtime data
+.codex_tmp/
+app_data/uploads/
+app_data/datasets/
+app_data/records/
+app_data/packages/
+app_data/models/
+app_data/replays/
+app_data/smoke/
+app_data/*.log
+app_data/*.out
+app_data/*.err
+app_data/cleanup_report.md
+
+# Generated fitting outputs
+outputs/
+
+# Local packaging outputs
+build/
+dist/
+*.spec
+
+# Local experiment files
+userdata/
+*.xlsx
+*.xls
+/*.csv
+/*.fitpack.json
+*.pdf
+/*.txt
+/*.png
+/*.jpg
+/*.jpeg
+/app/static/workflow-menu-concepts.html
+tmp_pdf_pages/
+
+# Editor/system files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
