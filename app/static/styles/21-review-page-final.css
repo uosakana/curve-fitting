@@ -1,0 +1,325 @@
+/* ==========================================================================
+   Final Review result surface
+   Extracted from final override passes to make Review ownership explicit.
+   ========================================================================== */
+
+.result-review-page {
+  background:
+    radial-gradient(ellipse at 18% 16%, rgba(120, 242, 229, 0.045), transparent 34%),
+    radial-gradient(ellipse at 82% 78%, rgba(127, 214, 255, 0.032), transparent 36%),
+    #04070b;
+}
+
+.result-review-page::before {
+  display: none !important;
+  animation: none !important;
+}
+
+.result-review-page.flow-enter .review-layout {
+  animation: none !important;
+}
+
+.result-review-page,
+.result-review-page button,
+.result-review-page input,
+.result-review-page select,
+.result-review-page textarea {
+  font-family: var(--font-ui), "Inter", "TASA Orbiter", "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+  font-size: 12.5px;
+  letter-spacing: 0;
+}
+
+.result-review-page .data-picker-header h2 {
+  font-size: 18.5px;
+  line-height: 1.2;
+}
+
+.result-review-page #reviewDataSummary {
+  font-size: 12.5px;
+}
+
+.result-review-page .review-chart-panel {
+  grid-template-rows: auto auto auto auto;
+  gap: 11px;
+}
+
+.result-review-page .review-current-model {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: auto;
+  min-height: 44px;
+  padding: 0 2px;
+  pointer-events: auto;
+}
+
+.result-review-page .review-current-model span {
+  display: block;
+  font-size: 11.5px;
+}
+
+.result-review-page .review-current-model strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 16px;
+  line-height: 1.18;
+}
+
+.result-review-page .review-chart-panel canvas {
+  margin-top: 2px;
+  height: clamp(410px, 56vh, 560px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.016), rgba(255, 255, 255, 0.004)),
+    rgba(3, 7, 12, 0.44);
+}
+
+.result-review-page .legend span,
+.result-review-page .review-overlay-toggle,
+.review-side-tabs button {
+  font-size: 12px;
+}
+
+.result-review-page .review-candidates-head span,
+.result-review-page .review-assistant-head strong {
+  font-size: 13px;
+}
+
+.result-review-page .review-candidates-head small,
+.result-review-page .review-assistant-head span,
+.result-review-page .review-notes,
+.result-review-page .review-assistant-panel .assistant-item span,
+.result-review-page .review-assistant-panel .assistant-message span {
+  font-size: 11.5px;
+}
+
+.result-review-page .review-grid {
+  grid-template-columns: minmax(560px, 790px) minmax(380px, 410px);
+}
+
+.result-review-page .review-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.result-review-page .review-metrics div {
+  min-height: 50px;
+  justify-items: center;
+  padding: 8px 5px;
+  text-align: center;
+}
+
+.result-review-page .review-metrics span {
+  font-size: 10.5px;
+}
+
+.result-review-page .review-metrics strong {
+  margin-top: 5px;
+  font-size: 13.5px;
+}
+
+.result-review-page .review-candidate-list {
+  min-height: 240px;
+}
+
+.review-candidate-item {
+  min-height: 78px;
+  padding: 13px;
+  border-radius: 18px;
+}
+
+.review-candidate-item.is-collapsed {
+  min-height: 78px;
+}
+
+.review-candidate-item.is-expanded {
+  min-height: 286px;
+}
+
+.review-candidate-title strong {
+  font-size: 13px;
+}
+
+.review-candidate-preview-label {
+  font-size: 12.5px;
+}
+
+.review-candidate-mini span {
+  min-height: 34px;
+  padding: 6px 8px;
+  font-size: 11.5px;
+}
+
+.review-candidate-details {
+  max-height: 224px;
+}
+
+.review-candidate-stats {
+  gap: 8px;
+}
+
+.review-candidate-reasons {
+  max-height: 128px;
+  gap: 6px;
+}
+
+.review-candidate-reasons li {
+  line-height: 1.34;
+}
+
+.result-review-page .review-assistant-panel .assistant-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.result-review-page .review-assistant-panel .assistant-item,
+.result-review-page .review-assistant-panel .assistant-message {
+  min-height: 58px;
+}
+
+@media (max-width: 760px) {
+  .result-review-page .review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-review-page .review-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.result-review-page .review-model-card {
+  display: grid;
+  gap: 10px;
+  padding: 13px;
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(120, 242, 229, 0.055), rgba(127, 214, 255, 0.025)),
+    rgba(4, 7, 11, 0.46);
+  border: 1px solid rgba(120, 242, 229, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.result-review-page .review-model-card.is-empty {
+  opacity: 0.72;
+}
+
+.review-model-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.review-model-head span,
+.review-model-row em,
+.review-model-row small,
+.review-model-empty {
+  color: rgba(217, 231, 241, 0.58);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.review-model-head strong {
+  color: rgba(242, 251, 255, 0.88);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.review-model-list {
+  display: grid;
+  gap: 7px;
+}
+
+.review-model-row {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 9px;
+  border-radius: 8px;
+  background: rgba(3, 8, 13, 0.26);
+  border: 1px solid rgba(148, 163, 184, 0.085);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.review-model-row:hover {
+  transform: translateY(-1px);
+  background: rgba(10, 20, 28, 0.34);
+  border-color: rgba(120, 242, 229, 0.16);
+}
+
+.review-model-row.is-selected {
+  background:
+    linear-gradient(135deg, rgba(120, 242, 229, 0.11), rgba(216, 196, 255, 0.045)),
+    rgba(5, 12, 17, 0.34);
+  border-color: rgba(120, 242, 229, 0.24);
+}
+
+.review-model-row.is-post-fit {
+  border-color: rgba(245, 210, 142, 0.18);
+}
+
+.review-model-row > span {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  color: rgba(242, 251, 255, 0.76);
+  background: rgba(255, 255, 255, 0.055);
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.review-model-row strong {
+  min-width: 0;
+  color: rgba(242, 251, 255, 0.9);
+  font-size: 12px;
+  font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.review-model-row em {
+  font-style: normal;
+  justify-self: end;
+}
+
+.review-model-row small {
+  grid-column: 2 / 4;
+}
+
+/* UI pass 21b: compact Review decision actions */
+
+.result-review-page .review-actions {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  justify-content: center;
+  justify-self: center;
+  margin-inline: auto;
+  gap: 9px;
+}
+
+.result-review-page .review-actions button,
+.result-review-page #reviewManualFitBtn.secondary {
+  min-width: 108px;
+  max-width: 132px;
+  width: auto;
+  padding: 0 16px;
+}
+/* UI pass 21c: relaxed Decision spacing */
+
+.result-review-page .review-decision-card {
+  padding-bottom: 13px;
+}
+
+.result-review-page .review-actions {
+  margin-top: 12px;
+}

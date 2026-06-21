@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Workflow Mega Menu Concepts</title>
+    <style>
+      @font-face {
+        font-family: "TASA Orbiter";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("/static/fonts/tasa-orbiter-latin.woff2") format("woff2");
+      }
+
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url("/static/fonts/inter-latin.woff2") format("woff2");
+      }
+
+      :root {
+        --bg: #030706;
+        --panel: rgba(5, 14, 12, 0.42);
+        --panel-strong: rgba(6, 19, 16, 0.62);
+        --line: rgba(225, 255, 241, 0.07);
+        --line-strong: rgba(162, 239, 201, 0.22);
+        --ink: #f0faf8;
+        --muted: rgba(224, 241, 238, 0.58);
+        --soft: rgba(224, 241, 238, 0.38);
+        --green: #8df0cc;
+        --aqua: #9de9f7;
+        --mint: #d6f9ce;
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+        --font-ui: "TASA Orbiter", "Inter", "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background:
+          radial-gradient(ellipse at 24% 18%, rgba(141, 240, 204, 0.13), transparent 28%),
+          radial-gradient(ellipse at 76% 32%, rgba(157, 233, 247, 0.09), transparent 26%),
+          linear-gradient(180deg, #020504 0%, #040908 54%, #020403 100%);
+        color: var(--ink);
+        font-family: var(--font-ui);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.07), transparent 36%),
+          linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.38));
+        opacity: 0.76;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 34px 0 52px;
+      }
+
+      .topbar {
+        width: min(430px, 100%);
+        margin: 0 auto 38px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+        padding: 3px;
+        border-radius: 999px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
+          rgba(3, 12, 10, 0.34);
+        box-shadow: inset 0 1px 0 rgba(209, 255, 236, 0.025), 0 14px 42px rgba(0, 0, 0, 0.12);
+        backdrop-filter: blur(24px) saturate(1.05);
+      }
+
+      .topbar span {
+        min-height: 31px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        color: rgba(232, 244, 252, 0.58);
+        font-size: 12px;
+        font-weight: 430;
+      }
+
+      .topbar span:first-child {
+        color: rgba(244, 252, 248, 0.94);
+        background:
+          radial-gradient(circle at 50% 0%, rgba(198, 255, 224, 0.1), transparent 58%),
+          linear-gradient(180deg, rgba(50, 84, 70, 0.48), rgba(11, 34, 29, 0.44));
+      }
+
+      .hero {
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .hero p {
+        max-width: 660px;
+        margin: 10px auto 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .hero h1 {
+        margin: 0;
+        color: rgba(244, 252, 248, 0.96);
+        font-size: clamp(30px, 5vw, 54px);
+        font-weight: 560;
+        letter-spacing: 0;
+        line-height: 1;
+      }
+
+      .concept-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .concept {
+        position: relative;
+        overflow: hidden;
+        border: 0;
+        border-radius: 16px;
+        background:
+          radial-gradient(ellipse at 18% 0%, rgba(99, 145, 116, 0.13), transparent 42%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+          var(--panel);
+        box-shadow: inset 0 1px 0 rgba(220, 255, 239, 0.03), var(--shadow);
+        backdrop-filter: blur(34px) saturate(1.05);
+      }
+
+      .concept::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(225, 255, 241, 0.026), transparent 42%);
+        pointer-events: none;
+      }
+
+      .concept-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 16px;
+        padding: 18px;
+      }
+
+      .concept-title {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: end;
+      }
+
+      .concept-title span {
+        display: block;
+        margin-bottom: 7px;
+        color: rgba(232, 244, 252, 0.5);
+        font-size: 10px;
+        font-weight: 480;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .concept-title strong {
+        color: rgba(244, 252, 248, 0.96);
+        font-size: 20px;
+        font-weight: 520;
+        line-height: 1.1;
+      }
+
+      .tag {
+        align-self: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(141, 240, 204, 0.07);
+        color: rgba(213, 255, 236, 0.72);
+        font-size: 11px;
+        font-weight: 430;
+        white-space: nowrap;
+      }
+
+      .detail {
+        min-height: 42px;
+        margin: 0;
+        color: rgba(217, 231, 241, 0.62);
+        font-size: 12px;
+        font-weight: 430;
+        line-height: 1.55;
+        text-wrap: pretty;
+        transition: opacity 0.16s ease, transform 0.16s ease;
+      }
+
+      .detail.is-changing {
+        opacity: 0.72;
+        transform: translateY(2px);
+      }
+
+      .strip-layout {
+        grid-template-columns: minmax(180px, 0.36fr) minmax(0, 1.64fr);
+        align-items: center;
+      }
+
+      .strip-flow {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 6px;
+        padding: 5px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.022);
+        box-shadow: inset 0 1px 0 rgba(220, 255, 239, 0.03);
+      }
+
+      .strip-step {
+        min-width: 0;
+        min-height: 38px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 6px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: rgba(232, 244, 252, 0.62);
+        cursor: default;
+        transition: color 0.14s ease, background 0.14s ease, transform 0.14s ease;
+      }
+
+      .strip-step:hover,
+      .strip-step.is-active {
+        color: rgba(244, 252, 248, 0.95);
+        background:
+          radial-gradient(circle at 50% 0%, rgba(198, 255, 224, 0.1), transparent 58%),
+          linear-gradient(180deg, rgba(50, 84, 70, 0.52), rgba(11, 34, 29, 0.46));
+        transform: translateY(-1px);
+      }
+
+      .strip-step span {
+        color: rgba(141, 240, 204, 0.72);
+        font-size: 10px;
+        font-weight: 500;
+      }
+
+      .strip-step strong {
+        min-width: 0;
+        overflow: hidden;
+        font-size: 12px;
+        font-weight: 450;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .compact-layout {
+        grid-template-columns: minmax(190px, 0.38fr) minmax(0, 1.62fr);
+        align-items: center;
+      }
+
+      .compact-flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .compact-card {
+        min-width: 0;
+        min-height: 64px;
+        display: grid;
+        align-content: center;
+        gap: 3px;
+        padding: 9px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.023);
+        color: rgba(232, 244, 252, 0.72);
+        outline: 0;
+        transition:
+          border-color 0.16s ease,
+          background 0.16s ease,
+          transform 0.16s ease,
+          box-shadow 0.16s ease;
+      }
+
+      .compact-card:hover,
+      .compact-card.is-active {
+        border-color: var(--line-strong);
+        background: rgba(141, 240, 204, 0.05);
+        box-shadow: inset 0 1px 0 rgba(224, 255, 241, 0.06), 0 12px 28px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .compact-card span {
+        color: rgba(141, 240, 204, 0.66);
+        font-size: 10px;
+        font-weight: 460;
+      }
+
+      .compact-card strong {
+        color: rgba(244, 252, 248, 0.93);
+        font-size: 12.5px;
+        font-weight: 480;
+        line-height: 1.16;
+      }
+
+      .compact-card small {
+        color: rgba(217, 231, 241, 0.5);
+        font-size: 10px;
+        line-height: 1.25;
+      }
+
+      .node-layout {
+        grid-template-columns: minmax(190px, 0.38fr) minmax(0, 1.62fr);
+        align-items: center;
+      }
+
+      .node-flow {
+        position: relative;
+        min-height: 94px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: center;
+        gap: 0;
+        padding: 10px 6px;
+      }
+
+      .node-flow::before {
+        content: "";
+        position: absolute;
+        left: 10%;
+        right: 10%;
+        top: 44px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(141, 240, 204, 0.28), transparent);
+      }
+
+      .node-step {
+        position: relative;
+        z-index: 1;
+        min-width: 0;
+        display: grid;
+        justify-items: center;
+        gap: 7px;
+        border: 0;
+        background: transparent;
+        color: rgba(232, 244, 252, 0.65);
+        cursor: default;
+      }
+
+      .node-dot {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.2), transparent 42%),
+          rgba(9, 31, 26, 0.86);
+        color: rgba(213, 255, 236, 0.78);
+        font-size: 10px;
+        font-weight: 500;
+        box-shadow:
+          inset 0 1px 0 rgba(224, 255, 241, 0.08),
+          0 0 0 1px rgba(141, 240, 204, 0.13),
+          0 12px 28px rgba(0, 0, 0, 0.18);
+        transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+      }
+
+      .node-step:hover .node-dot,
+      .node-step.is-active .node-dot {
+        background:
+          radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.27), transparent 40%),
+          rgba(36, 82, 66, 0.96);
+        box-shadow:
+          inset 0 1px 0 rgba(224, 255, 241, 0.16),
+          0 0 0 1px rgba(141, 240, 204, 0.25),
+          0 0 28px rgba(141, 240, 204, 0.16);
+        transform: translateY(-2px) scale(1.05);
+      }
+
+      .node-step strong {
+        color: rgba(244, 252, 248, 0.9);
+        font-size: 12px;
+        font-weight: 440;
+        line-height: 1.12;
+      }
+
+      .node-step small {
+        color: rgba(217, 231, 241, 0.44);
+        font-size: 9.5px;
+      }
+
+      @media (max-width: 900px) {
+        .strip-layout,
+        .compact-layout,
+        .node-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .concept-title {
+          grid-template-columns: 1fr;
+        }
+
+        .tag {
+          justify-self: start;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          width: min(100% - 24px, 1180px);
+          padding-top: 20px;
+        }
+
+        .strip-flow,
+        .compact-flow,
+        .node-flow {
+          grid-template-columns: 1fr;
+        }
+
+        .strip-flow {
+          border-radius: 14px;
+        }
+
+        .node-flow::before {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="topbar" aria-label="Preview tabs">
+        <span>Workflow</span>
+        <span>Models</span>
+        <span>Lab</span>
+      </nav>
+
+      <header class="hero">
+        <h1>Workflow menu concepts</h1>
+        <p>三个方案都模拟首页 mega menu 的展开层。鼠标放到每一步上，看解释文字是否稳定、是否轻快，以及整体有没有压住首页的视觉。</p>
+      </header>
+
+      <section class="concept-grid">
+        <article class="concept" data-concept>
+          <div class="concept-inner strip-layout">
+            <div>
+              <div class="concept-title">
+                <div>
+                  <span>Option A</span>
+                  <strong>轻量流程条</strong>
+                </div>
+                <em class="tag">最像 mega menu</em>
+              </div>
+              <p class="detail" data-detail data-default="Raw data becomes a reviewed fit, then a reusable record.">
+                Raw data becomes a reviewed fit, then a reusable record.
+              </p>
+            </div>
+            <div class="strip-flow">
+              <button class="strip-step is-active" type="button" data-text="Load XLSX, TXT, or a fitpack; the file type decides the next surface.">
+                <span>01</span><strong>Import</strong>
+              </button>
+              <button class="strip-step" type="button" data-text="Mark the current column or TXT block, then keep the voltage window tight.">
+                <span>02</span><strong>Select</strong>
+              </button>
+              <button class="strip-step" type="button" data-text="Run the M-family search with the current range and compare physical candidates.">
+                <span>03</span><strong>Fit</strong>
+              </button>
+              <button class="strip-step" type="button" data-text="Inspect candidate cards, regional error, and the curve overlay before accepting.">
+                <span>04</span><strong>Review</strong>
+              </button>
+              <button class="strip-step" type="button" data-text="Save a fitpack so the curve, model, parameters, and evidence can be reproduced.">
+                <span>05</span><strong>Record</strong>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="concept" data-concept>
+          <div class="concept-inner compact-layout">
+            <div>
+              <div class="concept-title">
+                <div>
+                  <span>Option B</span>
+                  <strong>压缩卡片</strong>
+                </div>
+                <em class="tag">保留卡片感</em>
+              </div>
+              <p class="detail" data-detail data-default="Five compact cards keep the current structure, but remove the tall empty lower half.">
+                Five compact cards keep the current structure, but remove the tall empty lower half.
+              </p>
+            </div>
+            <div class="compact-flow">
+              <button class="compact-card is-active" type="button" data-text="Load XLSX, TXT, or a fitpack; the file type decides the next surface.">
+                <span>01</span>
+                <strong>Import</strong>
+                <small>XLSX / TXT</small>
+              </button>
+              <button class="compact-card" type="button" data-text="Mark the current column or TXT block, then keep the voltage window tight.">
+                <span>02</span>
+                <strong>Select</strong>
+                <small>Curve window</small>
+              </button>
+              <button class="compact-card" type="button" data-text="Run the M-family search with the current range and compare physical candidates.">
+                <span>03</span>
+                <strong>Fit</strong>
+                <small>M-family</small>
+              </button>
+              <button class="compact-card" type="button" data-text="Inspect candidate cards, regional error, and the curve overlay before accepting.">
+                <span>04</span>
+                <strong>Review</strong>
+                <small>Candidates</small>
+              </button>
+              <button class="compact-card" type="button" data-text="Save a fitpack so the curve, model, parameters, and evidence can be reproduced.">
+                <span>05</span>
+                <strong>Record</strong>
+                <small>Fitpack</small>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="concept" data-concept>
+          <div class="concept-inner node-layout">
+            <div>
+              <div class="concept-title">
+                <div>
+                  <span>Option C</span>
+                  <strong>圆点流程图</strong>
+                </div>
+                <em class="tag">更像流程图</em>
+              </div>
+              <p class="detail" data-detail data-default="A thin path makes the workflow more visual, but it is also the most decorative option.">
+                A thin path makes the workflow more visual, but it is also the most decorative option.
+              </p>
+            </div>
+            <div class="node-flow">
+              <button class="node-step is-active" type="button" data-text="Load XLSX, TXT, or a fitpack; the file type decides the next surface.">
+                <span class="node-dot">01</span>
+                <strong>Import</strong>
+                <small>files</small>
+              </button>
+              <button class="node-step" type="button" data-text="Mark the current column or TXT block, then keep the voltage window tight.">
+                <span class="node-dot">02</span>
+                <strong>Select</strong>
+                <small>range</small>
+              </button>
+              <button class="node-step" type="button" data-text="Run the M-family search with the current range and compare physical candidates.">
+                <span class="node-dot">03</span>
+                <strong>Fit</strong>
+                <small>models</small>
+              </button>
+              <button class="node-step" type="button" data-text="Inspect candidate cards, regional error, and the curve overlay before accepting.">
+                <span class="node-dot">04</span>
+                <strong>Review</strong>
+                <small>evidence</small>
+              </button>
+              <button class="node-step" type="button" data-text="Save a fitpack so the curve, model, parameters, and evidence can be reproduced.">
+                <span class="node-dot">05</span>
+                <strong>Record</strong>
+                <small>fitpack</small>
+              </button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const concepts = document.querySelectorAll("[data-concept]");
+
+      function setDetail(concept, trigger) {
+        const detail = concept.querySelector("[data-detail]");
+        const items = concept.querySelectorAll("button[data-text]");
+        if (!detail) return;
+        const text = trigger?.dataset.text || detail.dataset.default || "";
+        items.forEach((item) => item.classList.toggle("is-active", item === trigger));
+        if (detail.textContent.trim() === text) return;
+        detail.textContent = text;
+        detail.classList.add("is-changing");
+        window.setTimeout(() => detail.classList.remove("is-changing"), 160);
+      }
+
+      concepts.forEach((concept) => {
+        concept.querySelectorAll("button[data-text]").forEach((button) => {
+          button.addEventListener("pointerenter", () => setDetail(concept, button));
+          button.addEventListener("focus", () => setDetail(concept, button));
+        });
+        concept.addEventListener("pointerleave", () => setDetail(concept, concept.querySelector("button[data-text]")));
+      });
+    </script>
+  </body>
+</html>

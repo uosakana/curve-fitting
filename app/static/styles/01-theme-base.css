@@ -1,0 +1,113 @@
+/* ==========================================================================
+   Theme tokens and base elements
+   ========================================================================== */
+
+@font-face {
+  font-family: "TASA Orbiter";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  font-feature-settings: "ss03" on, "cv05" on;
+  src: url("/static/fonts/tasa-orbiter-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/static/fonts/inter-latin.woff2") format("woff2");
+}
+
+:root {
+  --bg: #f3f6fa;
+  --panel: #ffffff;
+  --panel-soft: #f8fafc;
+  --line: #d7deea;
+  --line-strong: #c4cfdd;
+  --text: #16202e;
+  --muted: #617187;
+  --blue: #2563eb;
+  --blue-soft: #e8f0ff;
+  --amber: #d97706;
+  --red: #dc2626;
+  --green: #15803d;
+  --cyan: #0891b2;
+  --purple: #7c3aed;
+  --plot-data: #6BAED6;
+  --plot-total: #FB6A4A;
+  --plot-ohmic: #90BA48;
+  --plot-diode: #136AEE;
+  --plot-nonohmic: #DF42E3;
+  --home-bg: #050814;
+  --home-ink: #ecf7ff;
+  --home-muted: #9bb4c8;
+  --home-cyan: #38d7ff;
+  --home-amber: #f5b44c;
+  --grid-select-fill: rgba(34, 211, 238, 0.16);
+  --grid-select-fill-strong: rgba(37, 99, 235, 0.22);
+  --grid-select-border: rgba(56, 189, 248, 0.84);
+  --grid-column-fill: rgba(14, 165, 233, 0.08);
+  --grid-hover-fill: rgba(45, 212, 191, 0.12);
+  --grid-active-fill: rgba(59, 130, 246, 0.18);
+  --ring: rgba(37, 99, 235, 0.18);
+  --shadow-soft: 0 12px 34px rgba(15, 23, 42, 0.07);
+  --shadow-lift: 0 18px 46px rgba(15, 23, 42, 0.11);
+  --font-ui: "TASA Orbiter", "Inter", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.16);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: rgba(100, 116, 139, 0.42);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.58);
+  background-clip: padding-box;
+}
+
+.visually-hidden-file {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.flow-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(236, 242, 249, 0.9)),
+    #eef2f7;
+}

@@ -1,0 +1,1469 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dark Current Fitting Workbench</title>
+    <link rel="stylesheet" href="/static/styles.css?v=20260620-save-edit-01" />
+  </head>
+  <body>
+    <input id="fileInput" class="visually-hidden-file" type="file" accept=".xlsx,.xls,.csv" />
+    <input id="txtInput" class="visually-hidden-file" type="file" accept=".txt,text/plain" />
+    <input id="fitpackInput" class="visually-hidden-file" type="file" accept=".fitpack.json" />
+
+    <section id="homePage" class="flow-page home-page">
+      <div class="home-glow home-glow-teal" aria-hidden="true"></div>
+      <div class="home-glow home-glow-green" aria-hidden="true"></div>
+      <nav class="home-mega-nav" data-home-mega-root aria-label="Workbench information">
+        <div class="home-mega-tabs motion-tabs" role="menubar">
+          <span class="home-mega-trail" aria-hidden="true"></span>
+          <span class="home-mega-indicator" aria-hidden="true"></span>
+          <button class="home-mega-tab" type="button" data-home-mega="workflow" aria-expanded="false">Workflow</button>
+          <button class="home-mega-tab" type="button" data-home-mega="models" aria-expanded="false">Models</button>
+          <button class="home-mega-tab" type="button" data-home-mega="lab" aria-expanded="false">Lab</button>
+        </div>
+        <div id="homeMegaPanel" class="home-mega-panel hidden" data-active-panel="workflow">
+          <section class="home-mega-content workflow-mega-content" data-home-mega-panel="workflow">
+            <div class="home-flow-map" aria-label="Fitting workflow">
+              <div
+                class="home-flow-step"
+                tabindex="0"
+                data-workflow-detail="Load XLSX, TXT, or a fitpack; the file type decides the next surface."
+              >
+                <span>01</span>
+                <strong>Import</strong>
+                <small>XLSX / TXT</small>
+              </div>
+              <div class="home-flow-link" aria-hidden="true"></div>
+              <div
+                class="home-flow-step"
+                tabindex="0"
+                data-workflow-detail="Mark the current column or TXT block, then keep the voltage window tight."
+              >
+                <span>02</span>
+                <strong>Select</strong>
+                <small>Curve window</small>
+              </div>
+              <div class="home-flow-link" aria-hidden="true"></div>
+              <div
+                class="home-flow-step"
+                tabindex="0"
+                data-workflow-detail="Run the M-family search with the current range and compare physical candidates."
+              >
+                <span>03</span>
+                <strong>Fit</strong>
+                <small>M-family</small>
+              </div>
+              <div class="home-flow-link" aria-hidden="true"></div>
+              <div
+                class="home-flow-step"
+                tabindex="0"
+                data-workflow-detail="Inspect candidate cards, regional error, and the curve overlay before accepting."
+              >
+                <span>04</span>
+                <strong>Review</strong>
+                <small>Candidates</small>
+              </div>
+              <div class="home-flow-link" aria-hidden="true"></div>
+              <div
+                class="home-flow-step"
+                tabindex="0"
+                data-workflow-detail="Save a fitpack so the curve, model, parameters, and evidence can be reproduced."
+              >
+                <span>05</span>
+                <strong>Record</strong>
+                <small>Fitpack</small>
+              </div>
+              <p
+                id="homeWorkflowDetail"
+                class="home-workflow-detail"
+                aria-live="polite"
+                data-default-text="Raw data becomes a reviewed fit, then a reusable record. Hover any step to preview what changes on screen."
+              >
+                Raw data becomes a reviewed fit, then a reusable record. Hover any step to preview what changes on screen.
+              </p>
+            </div>
+          </section>
+          <section class="home-mega-content hidden models-mega-content" data-home-mega-panel="models">
+            <div class="home-model-copy">
+              <div
+                id="homeModelDetail"
+                class="home-model-detail-card"
+                aria-live="polite"
+              >
+                <span data-model-detail-role>Model role</span>
+                <strong data-model-detail-title>Hover a model.</strong>
+                <code data-model-detail-formula>J model = transport assumption + residual evidence</code>
+                <p data-model-detail-text>Each candidate is ranked by fit quality and physical plausibility before it becomes a final record.</p>
+              </div>
+            </div>
+            <div class="home-model-cards">
+              <article
+                class="home-model-card"
+                tabindex="0"
+                data-model-role="Baseline"
+                data-model-title="M0 diode + Rs"
+                data-model-formula="J = J0(exp(U/nVt)-1), V = U + JRs"
+                data-model-detail="Single-diode transport with series resistance. Used as the minimum dark-current reference before adding leakage or high-field terms."
+              >
+                <span>M0</span>
+                <strong>Diode + Rs</strong>
+                <small>Baseline</small>
+              </article>
+              <article
+                class="home-model-card"
+                tabindex="0"
+                data-model-role="Equivalent shunt"
+                data-model-title="M1 diode + Rs + Rsh"
+                data-model-formula="M0 + U/Rsh"
+                data-model-detail="Adds a reportable ohmic leakage branch. It is useful when near-zero or reverse-bias residuals follow a mostly linear path."
+              >
+                <span>M1</span>
+                <strong>+ Rsh</strong>
+                <small>Ohmic leakage</small>
+              </article>
+              <article
+                class="home-model-card"
+                tabindex="0"
+                data-model-role="Production full model"
+                data-model-title="M2 non-ohmic leakage"
+                data-model-formula="M1 + k abs(U)^m sign(U)"
+                data-model-detail="Main production model for systematic reverse or high-field curvature. The non-ohmic term is treated as evidence, not a unique mechanism by itself."
+              >
+                <span>M2</span>
+                <strong>Non-ohmic</strong>
+                <small>Production</small>
+              </article>
+              <article
+                class="home-model-card"
+                tabindex="0"
+                data-model-role="Automatic fallback"
+                data-model-title="M3 no-k fallback"
+                data-model-formula="M2 with k -> 0"
+                data-model-detail="Automatic downgrade when the non-ohmic branch is negligible, unstable, or not justified by the selected voltage window."
+              >
+                <span>M3</span>
+                <strong>No-k fallback</strong>
+                <small>Downgrade</small>
+              </article>
+              <article
+                class="home-model-card physical"
+                tabindex="0"
+                data-model-role="M4 physical"
+                data-model-title="M4 clean double diode"
+                data-model-formula="J = Jr + Jd + Johmic"
+                data-model-detail="Physical candidate that separates recombination-like and diffusion-like branches. It should be promoted only when slope structure and residuals support both terms."
+              >
+                <span>M4</span>
+                <strong>Double diode</strong>
+                <small>Physical</small>
+              </article>
+              <article
+                class="home-model-card diagnostic"
+                tabindex="0"
+                data-model-role="Diagnostic only"
+                data-model-title="M5 SCLC / TFL"
+                data-model-formula="J ~ V^l, trap-limited bulk injection"
+                data-model-detail="Screens for space-charge or trap-filled-limit behavior at high field. It remains diagnostic unless thickness, area, and material priors are reliable."
+              >
+                <span>M5</span>
+                <strong>SCLC / TFL</strong>
+                <small>Trap-limited</small>
+              </article>
+              <article
+                class="home-model-card diagnostic"
+                tabindex="0"
+                data-model-role="Diagnostic only"
+                data-model-title="M6 Poole-Frenkel-like"
+                data-model-formula="J ~ E exp(beta sqrt(E)/kT)"
+                data-model-detail="Tests whether high-field leakage resembles field-assisted trap emission. Strong curvature alone is not enough for final assignment."
+              >
+                <span>M6</span>
+                <strong>PF-like</strong>
+                <small>Field-assisted</small>
+              </article>
+              <article
+                class="home-model-card diagnostic"
+                tabindex="0"
+                data-model-role="Diagnostic only"
+                data-model-title="M7 TAT-like"
+                data-model-formula="J ~ E exp(-B/E)"
+                data-model-detail="Screens for trap-assisted tunneling behavior. It needs repeated-device evidence and contact context before it can become more than a diagnostic view."
+              >
+                <span>M7</span>
+                <strong>TAT-like</strong>
+                <small>Tunneling</small>
+              </article>
+              <article
+                class="home-model-card diagnostic"
+                tabindex="0"
+                data-model-role="Metadata-aware"
+                data-model-title="M8 CQD heterointerface"
+                data-model-formula="J = Jinterface(stack, transport priors)"
+                data-model-detail="Metadata-aware diagnostic for CQD heterointerfaces. It is intended for stack-sensitive interpretation, not blind universal fitting."
+              >
+                <span>M8</span>
+                <strong>CQD interface</strong>
+                <small>Diagnostic</small>
+              </article>
+              <article
+                class="home-model-card diagnostic"
+                tabindex="0"
+                data-model-role="Diagnostic only"
+                data-model-title="M9 interface generation / barrier"
+                data-model-formula="J ~ Jgen + Jbarrier"
+                data-model-detail="Represents interface-state generation or contact-barrier signatures. It needs matched light/dark or device-series evidence before promotion."
+              >
+                <span>M9</span>
+                <strong>Interface</strong>
+                <small>Gen / barrier</small>
+              </article>
+            </div>
+          </section>
+          <section class="home-mega-content hidden" data-home-mega-panel="lab">
+            <div>
+              <span class="home-mega-kicker">Lab context</span>
+              <strong>Group and project links.</strong>
+            </div>
+            <div class="home-lab-links">
+              <a href="https://nanophotonics.cc/" target="_blank" rel="noopener noreferrer">
+                <span>Group</span>
+                <strong>Nanophotonics</strong>
+                <small>Group homepage</small>
+              </a>
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=TUagQGQAAAAJ" target="_blank" rel="noopener noreferrer">
+                <span>Advisor</span>
+                <strong>Google Scholar</strong>
+                <small>Haodong Tang profile</small>
+              </a>
+              <a href="https://github.com/uosakana" target="_blank" rel="noopener noreferrer">
+                <span>GitHub</span>
+                <strong>uosakana</strong>
+                <small>&#12388;&#12414;&#12425;&#12394;&#12356;&#29983;&#27963;</small>
+              </a>
+            </div>
+          </section>
+        </div>
+      </nav>
+      <div class="home-layout">
+        <main class="home-hero-copy">
+          <div class="home-copy-main">
+            <h1 class="home-title home-stagger-item" style="--stagger: 0">
+              Fit the curve.
+              <span class="home-title-accent">Trust the record.</span>
+            </h1>
+            <p class="home-subtitle home-stagger-item" style="--stagger: 1">
+              Import JV/I-V data, inspect diagnostic fits, and save a restorable fitting package from one focused workspace.
+            </p>
+          </div>
+          <div id="homeImportRadial" class="home-import-radial home-stagger-item" style="--stagger: 2">
+            <button
+              id="homeImportMenuBtn"
+              class="home-radial-trigger"
+              type="button"
+              aria-controls="homeImportActions"
+              aria-expanded="false"
+              aria-label="Open import menu"
+            >
+              <span class="home-start-label">Get Start</span>
+            </button>
+            <div id="homeImportActions" class="home-radial-actions" aria-label="Import sources">
+              <button
+                id="homeChooseFileBtn"
+                class="home-action-card home-radial-action"
+                style="--rx: -108px; --ry: -64px; --radial-delay: 0ms"
+                type="button"
+                aria-label="Import XLSX or CSV data"
+              >
+                <svg class="home-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="4.5" y="5.5" width="15" height="13" rx="2" />
+                  <path d="M4.5 9.5h15" />
+                  <path d="M4.5 13.5h15" />
+                  <path d="M9.5 5.5v13" />
+                  <path d="M14.5 5.5v13" />
+                </svg>
+              </button>
+              <button
+                id="homeTxtImportBtn"
+                class="home-action-card home-radial-action"
+                style="--rx: 0px; --ry: -108px; --radial-delay: 45ms"
+                type="button"
+                aria-label="Import TXT data"
+              >
+                <svg class="home-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 3.5h7l4 4V20a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 20V5a1.5 1.5 0 0 1 1.5-1.5Z" />
+                  <path d="M14 3.5V8h4" />
+                  <path d="M9 12h5.8" />
+                  <path d="M9 15h7" />
+                  <path d="M9 18h4.2" />
+                </svg>
+              </button>
+              <button
+                id="homeImportFitpackBtn"
+                class="home-action-card home-radial-action secondary-card"
+                style="--rx: 108px; --ry: -64px; --radial-delay: 90ms"
+                type="button"
+                aria-label="Open saved fitpack"
+              >
+                <svg class="home-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4.5 8.2 12 4l7.5 4.2-7.5 4.2-7.5-4.2Z" />
+                  <path d="M4.5 8.2v7.9L12 20.5l7.5-4.4V8.2" />
+                  <path d="M12 12.4v8.1" />
+                  <path d="m8.2 6.1 7.5 4.2" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <section id="txtImportPage" class="flow-page txt-import-page hidden">
+      <header class="txt-import-header">
+        <div>
+          <h2>TXT Data</h2>
+          <span id="txtImportMeta">No txt file loaded.</span>
+        </div>
+        <div class="data-picker-actions flow-nav-actions">
+          <button id="txtBackHomeBtn" class="flow-nav-button flow-return-button icon-round" type="button" aria-label="Back">
+            <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+          <button id="txtHomeBtn" class="flow-nav-button flow-home-button icon-round" type="button" aria-label="Home">
+            <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4.5 11.2 12 5l7.5 6.2" />
+              <path d="M6.8 10.1v8.2c0 .9.6 1.5 1.5 1.5h7.4c.9 0 1.5-.6 1.5-1.5v-8.2" />
+              <path d="M10 19.8v-5.4h4v5.4" />
+            </svg>
+          </button>
+        </div>
+      </header>
+      <div class="txt-import-grid">
+        <main class="txt-preview-panel glass-panel">
+          <div class="txt-preview-toolbar">
+            <div class="segmented-control" aria-label="Y scale">
+              <button data-txt-scale="linear" type="button">Linear</button>
+              <button class="active" data-txt-scale="log_abs" type="button">Log Abs</button>
+              <button data-txt-scale="symlog" type="button">Symlog</button>
+            </div>
+            <div class="txt-fit-range" aria-label="Fit voltage range">
+              <span>Fit V</span>
+              <input id="txtFitVoltageMin" inputmode="decimal" aria-label="Minimum fit voltage" />
+              <span>to</span>
+              <input id="txtFitVoltageMax" inputmode="decimal" aria-label="Maximum fit voltage" />
+            </div>
+            <div class="txt-preview-actions motion-tabs" aria-label="Fit range presets">
+              <button id="txtFitCoreRangeBtn" class="txt-range-preset" type="button">Core</button>
+              <button id="txtFitFullRangeBtn" class="txt-range-preset" type="button">Full</button>
+            </div>
+          </div>
+          <canvas id="txtPreviewCanvas" width="960" height="620"></canvas>
+          <section class="txt-diagnostics-panel soft-panel">
+            <h2>Import Notes</h2>
+            <div id="txtDiagnosticsList" class="txt-diagnostics-list">No diagnostics yet.</div>
+          </section>
+        </main>
+        <div class="txt-block-column">
+          <aside class="txt-block-panel glass-panel">
+            <div class="txt-block-panel-head">
+              <div>
+                <strong>Blocks</strong>
+                <span id="txtBlockCount">0 parsed</span>
+              </div>
+            </div>
+            <div id="txtBlockList" class="txt-block-list">
+              <div class="preview-empty">No txt blocks parsed.</div>
+            </div>
+          </aside>
+          <div class="txt-block-actions">
+            <button id="txtUseSelectedBtn" class="primary-pill" type="button">Use Block</button>
+            <button id="txtClearSelectionBtn" class="icon-round" type="button">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 7l10 10" />
+                <path d="M17 7 7 17" />
+              </svg>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modelPage" class="flow-page model-page hidden">
+      <div class="model-layout">
+        <header class="data-picker-header">
+          <div class="run-check-copy">
+            <h2>Check & Start</h2>
+            <span id="modelDataSummary">No data range selected.</span>
+            <div class="run-check-inline" aria-label="Selected data summary">
+              <div>
+                <span>File</span>
+                <strong id="runFileSummary">--</strong>
+              </div>
+              <div>
+                <span>Points</span>
+                <strong id="runPointSummary">--</strong>
+              </div>
+              <div>
+                <span>Voltage</span>
+                <strong id="runVoltageSummary">--</strong>
+              </div>
+            </div>
+          </div>
+          <div class="data-picker-actions flow-nav-actions">
+            <button id="modelBackToDataBtn" class="flow-nav-button flow-return-button" type="button" aria-label="Back">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button id="modelHomeBtn" class="flow-nav-button flow-home-button" type="button" aria-label="Home">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.5 11.2 12 5l7.5 6.2" />
+                <path d="M6.8 10.1v8.2c0 .9.6 1.5 1.5 1.5h7.4c.9 0 1.5-.6 1.5-1.5v-8.2" />
+                <path d="M10 19.8v-5.4h4v5.4" />
+              </svg>
+            </button>
+          </div>
+        </header>
+        <section class="run-console-panel">
+          <div class="run-console-copy">
+            <span class="run-console-kicker">Fit launch</span>
+            <div class="run-mode-card" aria-label="Fit mode">
+              <div class="run-mode-tabs motion-tabs" role="tablist" aria-label="Fit mode">
+                <button class="active" type="button" role="tab" aria-selected="true" data-run-mode="fast_fit">Fast</button>
+                <button type="button" role="tab" aria-selected="false" data-run-mode="diagnostic_fit">Super</button>
+              </div>
+              <p id="runModeHint" class="run-mode-hint">Fast mode ranks the baseline family and keeps the run compact.</p>
+            </div>
+            <div class="run-console-actions">
+              <button id="modelRunFitBtn" class="run-fit-hero" type="button">
+                <span data-scramble-text="Start" data-scramble-words="Start,Fitting,Motion,Run Fit">Start</span>
+              </button>
+            </div>
+          </div>
+        </section>
+        <div id="runProtocolDialog" class="run-dialog-backdrop hidden" role="dialog" aria-modal="true" aria-label="Fit protocol">
+          <section class="run-dialog-card">
+            <header class="run-dialog-header">
+              <div>
+                <span>Protocol</span>
+                <strong>Fit engine settings</strong>
+              </div>
+              <button id="modelProtocolCloseBtn" class="flow-nav-button flow-return-button" type="button" aria-label="Close protocol">
+                <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 7l10 10" />
+                  <path d="M17 7 7 17" />
+                </svg>
+              </button>
+            </header>
+            <div class="model-options-grid run-dialog-grid">
+            <label class="field">
+              <span>Fit mode</span>
+              <select id="modelFitMode">
+                <option value="fast_fit" selected>Fast Fit</option>
+                <option value="diagnostic_fit">Diagnostic Fit</option>
+              </select>
+            </label>
+            <input id="modelScanMToggle" class="hidden" type="checkbox" aria-hidden="true" />
+            <label class="toggle-card">
+              <input id="modelCompareModelsToggle" type="checkbox" checked />
+              <span>
+                <strong>M-model selection</strong>
+                <small>M0-M3 baseline ranking plus bounded-n M4 rescue when the baseline is model-limited.</small>
+              </span>
+            </label>
+            <label class="toggle-card">
+              <input id="modelPostFitDiagnosticsToggle" type="checkbox" />
+              <span>
+                <strong>Post-fit diagnostics</strong>
+                <small>Run slower physical candidates and core-window checks after the baseline result.</small>
+              </span>
+            </label>
+            </div>
+            <footer class="run-dialog-footer">
+              <span>Settings apply to the next run.</span>
+              <button id="modelProtocolDoneBtn" class="txt-primary-action" type="button">Done</button>
+            </footer>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultPage" class="flow-page result-review-page hidden">
+      <div class="review-layout">
+        <header class="data-picker-header">
+          <div>
+            <h2>Review The Fitting Result</h2>
+            <span id="reviewDataSummary">No result loaded.</span>
+          </div>
+          <div class="data-picker-actions flow-nav-actions">
+            <button id="reviewBackModelBtn" class="flow-nav-button flow-return-button" type="button" aria-label="Back">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button id="reviewHomeBtn" class="flow-nav-button flow-home-button" type="button" aria-label="Home">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.5 11.2 12 5l7.5 6.2" />
+                <path d="M6.8 10.1v8.2c0 .9.6 1.5 1.5 1.5h7.4c.9 0 1.5-.6 1.5-1.5v-8.2" />
+                <path d="M10 19.8v-5.4h4v5.4" />
+              </svg>
+            </button>
+          </div>
+        </header>
+        <div class="review-grid">
+          <section class="review-chart-panel">
+            <div id="reviewCurrentModel" class="review-current-model">
+              <span>Current model</span>
+              <strong>Run a fit</strong>
+            </div>
+            <canvas id="reviewFitCanvas" width="960" height="520"></canvas>
+            <div class="review-legend-row">
+              <div id="reviewFitLegend" class="legend">
+                <span><i class="swatch measured"></i>Measured</span>
+                <span><i class="swatch fitted"></i>Fitted</span>
+                <span><i class="swatch diode"></i>Diode</span>
+                <span><i class="swatch ohmic"></i>Ohmic</span>
+                <span><i class="swatch nonohmic"></i>Non-ohmic</span>
+              </div>
+              <button id="reviewOverlayToggleBtn" class="review-overlay-toggle" type="button" aria-pressed="false">Overlay</button>
+            </div>
+            <div class="review-analysis-grid">
+              <div class="review-assistant-panel">
+                <div class="review-assistant-head">
+                  <strong>Analysis</strong>
+                  <span>Deterministic summary from fit diagnostics, region errors, candidate criteria, and ML status metadata.</span>
+                </div>
+                <div id="reviewAssistantList" class="assistant-list">
+                  <div class="assistant-item">
+                    <strong>No analysis yet.</strong>
+                    <span>Run a fit to generate structured interpretation.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <aside class="review-side">
+            <div class="review-metrics">
+              <div><span>Mean</span><strong id="reviewMeanError">--</strong></div>
+              <div><span>Max</span><strong id="reviewMaxError">--</strong></div>
+              <div><span>Points</span><strong id="reviewPointsCount">--</strong></div>
+              <div><span>n/m</span><strong id="reviewBestM">--</strong></div>
+            </div>
+            <div class="review-side-tabs motion-tabs" role="tablist" aria-label="Review panels">
+              <button class="active" type="button" data-review-panel="candidates">Candidates</button>
+              <button type="button" data-review-panel="context">Context</button>
+              <button type="button" data-review-panel="decision">Decision</button>
+            </div>
+            <div class="review-side-panels">
+              <section class="review-side-panel" data-review-panel-content="candidates">
+                <div class="review-candidates">
+                  <div class="review-candidates-head">
+                    <div>
+                      <span>Top candidates</span>
+                      <small id="reviewCandidateSummary">No candidates yet.</small>
+                    </div>
+                  </div>
+                  <div id="reviewCandidateList" class="review-candidate-list">
+                    <div class="review-candidate-empty">Run Diagnostic Fit to rank candidates.</div>
+                  </div>
+                </div>
+              </section>
+              <section class="review-side-panel hidden" data-review-panel-content="context">
+                <div id="reviewSnapshotCard" class="review-snapshot-card">
+                  <div class="review-snapshot-head">
+                    <span>Run snapshot</span>
+                    <strong id="reviewSnapshotId">--</strong>
+                  </div>
+                  <div id="reviewSnapshotGrid" class="review-snapshot-grid">
+                    <div><span>File</span><strong>--</strong></div>
+                    <div><span>Range</span><strong>--</strong></div>
+                    <div><span>Mode</span><strong>--</strong></div>
+                    <div><span>Candidates</span><strong>--</strong></div>
+                  </div>
+                </div>
+                <div id="reviewMlCard" class="review-ml-card">
+                  <div class="review-ml-head">
+                    <span>ML status</span>
+                    <strong id="reviewMlStatus">--</strong>
+                  </div>
+                  <div id="reviewMlGrid" class="review-ml-grid">
+                    <div><span>Models</span><strong>--</strong></div>
+                    <div><span>Similar</span><strong>--</strong></div>
+                    <div><span>Suggest</span><strong>--</strong></div>
+                    <div><span>Policy</span><strong>--</strong></div>
+                  </div>
+                </div>
+              </section>
+              <section class="review-side-panel hidden" data-review-panel-content="decision">
+                <div class="review-decision-card">
+                  <strong>Accept this fit?</strong>
+                  <small>Save a structured record, export a fitpack, or continue manual tuning.</small>
+                </div>
+                <div class="review-actions">
+                  <button id="reviewAcceptFitBtn" type="button">Accept Fit</button>
+                  <button id="reviewManualFitBtn" class="secondary" type="button">Manual Fit</button>
+                </div>
+              </section>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="manualPage" class="flow-page manual-page hidden">
+      <div class="manual-layout">
+        <header class="data-picker-header">
+          <div>
+            <span class="data-picker-step">Manual fit</span>
+            <h2>Adjust Parameters</h2>
+            <span id="manualSummary">Tune parameters, evaluate, then refit if needed.</span>
+          </div>
+          <div class="data-picker-actions flow-nav-actions">
+            <button id="manualBackReviewBtn" class="flow-nav-button flow-return-button" type="button" aria-label="Back">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button id="manualHomeBtn" class="flow-nav-button flow-home-button" type="button" aria-label="Home">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.5 11.2 12 5l7.5 6.2" />
+                <path d="M6.8 10.1v8.2c0 .9.6 1.5 1.5 1.5h7.4c.9 0 1.5-.6 1.5-1.5v-8.2" />
+                <path d="M10 19.8v-5.4h4v5.4" />
+              </svg>
+            </button>
+          </div>
+        </header>
+        <div class="manual-grid">
+          <section class="review-chart-panel">
+            <canvas id="manualFitCanvas" width="960" height="520"></canvas>
+            <div class="manual-history manual-history-strip">
+              <div class="manual-history-header">
+                <span>Adjustment timeline</span>
+                <div class="manual-history-actions">
+                  <button id="manualAddCheckpointBtn" class="secondary" type="button" aria-label="Add checkpoint">+</button>
+                  <button id="manualClearHistoryBtn" class="secondary" type="button" aria-label="Clear checkpoints">×</button>
+                </div>
+              </div>
+              <div id="manualHistoryList" class="manual-history-list"></div>
+            </div>
+          </section>
+          <aside class="manual-controls">
+            <div class="manual-param-grid">
+              <label class="field"><span id="manualLabelJ0">J0</span><input id="manualJ0" inputmode="decimal" /><small id="manualDeltaJ0" class="manual-param-delta">base</small></label>
+              <label class="field"><span id="manualLabelRs">Rs</span><input id="manualRs" inputmode="decimal" /><small id="manualDeltaRs" class="manual-param-delta">base</small></label>
+              <label class="field"><span id="manualLabelRsh">Rsh</span><input id="manualRsh" inputmode="decimal" /><small id="manualDeltaRsh" class="manual-param-delta">base</small></label>
+              <label class="field"><span id="manualLabelK">k</span><input id="manualK" inputmode="decimal" /><small id="manualDeltaK" class="manual-param-delta">base</small></label>
+              <label class="field manual-param-wide"><span>m</span><input id="manualM" inputmode="decimal" /><small id="manualDeltaM" class="manual-param-delta">base</small></label>
+            </div>
+            <div class="manual-live-status" id="manualLiveStatus">Wheel or type to update the fit automatically.</div>
+            <div class="manual-bottom-actions">
+              <button id="manualAcceptBtn" type="button">Accept</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="savePage" class="flow-page save-page hidden">
+      <div id="saveGlass" class="save-glass"></div>
+      <div class="save-modal" role="dialog" aria-modal="true" aria-label="Export accepted fit">
+        <header class="save-modal-header">
+          <div class="save-title-slot">
+            <h2 class="save-title-hidden">Accepted Fit</h2>
+          </div>
+          <div class="data-picker-actions flow-nav-actions">
+            <button id="saveBackReviewBtn" class="flow-nav-button flow-return-button" type="button" aria-label="Back">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button id="saveHomeBtn" class="flow-nav-button flow-home-button" type="button" aria-label="Home">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.5 11.2 12 5l7.5 6.2" />
+                <path d="M6.8 10.1v8.2c0 .9.6 1.5 1.5 1.5h7.4c.9 0 1.5-.6 1.5-1.5v-8.2" />
+                <path d="M10 19.8v-5.4h4v5.4" />
+              </svg>
+            </button>
+          </div>
+        </header>
+        <div class="save-modal-body">
+          <section class="device-card">
+            <div id="deviceStack" class="device-stack" aria-label="Editable device stack">
+              <div class="device-layer">Loading stack...</div>
+            </div>
+            <div class="device-caption">
+              <strong>Device structure</strong>
+              <span>Review the stack before saving.</span>
+            </div>
+            <div class="device-card-head">
+              <div class="device-orientation-tabs motion-tabs" role="tablist" aria-label="Device orientation">
+                <button class="active" type="button" role="tab" aria-selected="true" data-device-orientation="normal">Normal</button>
+                <button type="button" role="tab" aria-selected="false" data-device-orientation="reverse">Reverse</button>
+              </div>
+            </div>
+            <label class="field structure-check-field">
+              <input id="saveDeviceChecked" type="checkbox" />
+              <span>Structure checked</span>
+            </label>
+            <div id="deviceLayerEditor" class="device-layer-editor hidden">
+              <div class="device-editor-head">
+                <strong id="deviceEditorTitle">Layer</strong>
+                <span id="deviceEditorRole">material</span>
+                <button id="deviceEditorCloseBtn" class="secondary" type="button">Close</button>
+              </div>
+              <label class="field compact-field"><span>Name</span><input id="deviceEditName" /></label>
+              <label class="field compact-field"><span>Thickness nm</span><input id="deviceEditThickness" inputmode="decimal" /></label>
+              <label class="field compact-field"><span>Absorption peak nm</span><input id="deviceEditAbsorption" inputmode="decimal" placeholder="Optional" /></label>
+            </div>
+          </section>
+          <section class="save-form-grid">
+            <div class="save-form-module">
+              <label class="field">
+                <span>Member name</span>
+                <input id="saveMemberName" autocomplete="off" required />
+              </label>
+              <label class="field aging-field">
+                <span>Aging / test days</span>
+                <input id="saveAgingDays" value="0" inputmode="numeric" />
+              </label>
+              <label class="field save-legacy-field"><span>Fit name</span><input id="saveSampleId" placeholder="Sample or curve name" /></label>
+              <label class="field save-legacy-field"><span>Batch</span><input id="saveBatch" placeholder="Recipe or group" /></label>
+              <label class="field">
+                <span>Label</span>
+                <select id="saveQuality" required>
+                  <option value="acceptable">Acceptable</option>
+                  <option value="good">Good</option>
+                  <option value="poor">Poor</option>
+                  <option value="reject">Reject</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Self label</span>
+                <input id="saveHypothesis" list="saveHypothesisOptions" value="None" placeholder="None / leakage reduced / other" required />
+                <datalist id="saveHypothesisOptions">
+                  <option value="None"></option>
+                  <option value="Leakage reduced"></option>
+                  <option value="Leakage increased"></option>
+                  <option value="Recombination changed"></option>
+                  <option value="Series resistance changed"></option>
+                  <option value="Interface passivation"></option>
+                  <option value="Other"></option>
+                </datalist>
+              </label>
+              <label class="field">
+                <span>Leakage situation</span>
+                <select id="saveLeakageSituation" required>
+                  <option value="normal">Normal</option>
+                  <option value="slight_leakage">Slight leakage</option>
+                  <option value="obvious_leakage">Obvious leakage</option>
+                  <option value="reverse_leakage">Reverse leakage</option>
+                  <option value="uncertain">Uncertain</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Model note</span>
+                <select id="saveModelSituation">
+                  <option value="current_model_ok">Current model OK</option>
+                  <option value="model_updated">Model updated</option>
+                  <option value="physical_candidate">Physical candidate</option>
+                  <option value="diagnostic_candidate">Diagnostic candidate</option>
+                  <option value="needs_model_review">Needs model review</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+              <details class="save-training-context">
+                <summary>
+                  <span>Training context</span>
+                  <small>Optional ML signals</small>
+                </summary>
+                <div class="save-training-grid">
+                  <label class="field compact-field">
+                    <span>Device area</span>
+                    <input id="saveDeviceArea" inputmode="decimal" placeholder="mm2" />
+                  </label>
+                  <label class="field compact-field">
+                    <span>Batch tag</span>
+                    <input id="saveBatchTag" autocomplete="off" placeholder="batch / recipe" />
+                  </label>
+                  <label class="field compact-field">
+                    <span>Model feedback</span>
+                    <select id="saveModelFeedback">
+                      <option value="uncertain">Uncertain</option>
+                      <option value="model_correct">Model correct</option>
+                      <option value="model_wrong">Model wrong</option>
+                      <option value="diagnostic_useful">Diagnostic useful</option>
+                      <option value="manual_override">Manual override</option>
+                    </select>
+                  </label>
+                  <label class="field compact-field save-training-note">
+                    <span>Process note</span>
+                    <input id="saveProcessNote" autocomplete="off" placeholder="ligand / anneal / storage / measurement" />
+                  </label>
+                  <div class="save-training-tags" aria-label="Failure tags">
+                    <label><input type="checkbox" data-save-failure-tag="shunt" /> <span>Shunt</span></label>
+                    <label><input type="checkbox" data-save-failure-tag="contact" /> <span>Contact</span></label>
+                    <label><input type="checkbox" data-save-failure-tag="noise" /> <span>Noise</span></label>
+                    <label><input type="checkbox" data-save-failure-tag="hysteresis" /> <span>Hysteresis</span></label>
+                    <label><input type="checkbox" data-save-failure-tag="outlier" /> <span>Outlier</span></label>
+                    <label><input type="checkbox" data-save-failure-tag="unstable" /> <span>Unstable</span></label>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
+        </div>
+
+        <footer class="save-modal-footer">
+          <div id="savePageStatus" class="meta compact-meta">No record saved.</div>
+          <div class="record-actions">
+            <div class="save-output-note">
+              <strong>Default output</strong>
+              <span>XLSX and replay pack are generated after the record is complete.</span>
+            </div>
+            <button id="saveAcceptedRecordBtn" type="button">Save</button>
+          </div>
+        </footer>
+        <div id="saveSuccessOverlay" class="save-success hidden" aria-live="polite">
+          <div class="save-success-mark"></div>
+          <strong>Saved + exported</strong>
+          <span>XLSX and replay pack are ready.</span>
+        </div>
+      </div>
+    </section>
+
+    <div id="appShell" class="app-shell hidden">
+      <header class="topbar">
+        <div>
+          <h1>Dark Current Fitting Workbench</h1>
+          <p id="statusText">Load JV/I-V data to begin.</p>
+        </div>
+        <div class="top-actions">
+          <button id="changeFileBtn" class="secondary hidden" type="button">Change File</button>
+          <button id="runBtn" type="button">Run Fit</button>
+        </div>
+      </header>
+
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>Data</h2>
+          <div id="filePickerRow" class="field hidden">
+            <span>File</span>
+            <button id="sidebarChooseFileBtn" class="secondary" type="button">Import Data</button>
+          </div>
+          <div id="fileSelectionRow" class="selected-file hidden">
+            <div>
+              <strong id="selectedFileName">No file selected.</strong>
+              <span id="selectedFileHint">Choose a data file to continue.</span>
+            </div>
+          </div>
+          <label class="field">
+            <span>Sheet</span>
+            <select id="sheetSelect">
+              <option value="">First sheet</option>
+            </select>
+          </label>
+          <div class="field-grid">
+            <div class="range-group">
+              <span class="group-label">Current range</span>
+              <div class="three-cols">
+                <label class="field compact-field">
+                  <span>Column</span>
+                  <input id="currentColumn" list="excelColumnSuggestions" placeholder="AA" autocomplete="off" />
+                  <datalist id="excelColumnSuggestions"></datalist>
+                </label>
+                <label class="field compact-field">
+                  <span>Start row</span>
+                  <input id="currentStartRow" inputmode="numeric" placeholder="82" />
+                </label>
+                <label class="field compact-field">
+                  <span>End row</span>
+                  <input id="currentEndRow" inputmode="numeric" placeholder="182" />
+                </label>
+              </div>
+            </div>
+            <div class="range-group">
+              <label class="field">
+                <span>Voltage source</span>
+                <select id="voltageMode">
+                  <option value="generated" selected>Generated range</option>
+                  <option value="excel_column">Excel column</option>
+                </select>
+              </label>
+              <div id="generatedVoltageGroup" class="three-cols">
+                <label class="field compact-field">
+                  <span>Start</span>
+                  <input id="voltageStart" type="number" step="0.01" value="-0.5" />
+                </label>
+                <label class="field compact-field">
+                  <span>End auto</span>
+                  <input id="voltageEnd" type="number" step="0.01" value="0.3" readonly />
+                </label>
+                <label class="field compact-field">
+                  <span>Step</span>
+                  <input id="voltageStep" type="number" step="0.01" value="0.01" />
+                </label>
+              </div>
+              <div id="excelVoltageGroup" class="three-cols hidden">
+                <label class="field compact-field">
+                  <span>Column</span>
+                  <input id="voltageColumn" list="excelVoltageColumnSuggestions" placeholder="Z" autocomplete="off" />
+                  <datalist id="excelVoltageColumnSuggestions"></datalist>
+                </label>
+                <label class="field compact-field">
+                  <span>Start row</span>
+                  <input id="voltageStartRow" inputmode="numeric" placeholder="82" />
+                </label>
+                <label class="field compact-field">
+                  <span>End row</span>
+                  <input id="voltageEndRow" inputmode="numeric" placeholder="182" />
+                </label>
+              </div>
+            </div>
+          </div>
+          <div id="fileMeta" class="meta">No file inspected.</div>
+        </section>
+
+        <section class="panel">
+          <h2>Fit</h2>
+          <div class="fit-summary">
+            <strong>Choose speed or diagnostic depth.</strong>
+            <span>Fast Fit runs a quick baseline. Diagnostic Fit ranks robust, n/m, baseline-family, and post-fit candidates.</span>
+          </div>
+          <details id="advancedFitPanel" class="advanced-panel">
+            <summary>Diagnostic internals</summary>
+            <label class="field">
+              <span>Fit mode</span>
+              <select id="fitMode">
+                <option value="fast_fit" selected>Fast Fit</option>
+                <option value="diagnostic_fit">Diagnostic Fit</option>
+              </select>
+            </label>
+            <label class="toggle-row">
+              <input id="mlAssistToggle" type="checkbox" />
+              <span>Enable ML fit assist</span>
+            </label>
+            <label class="field">
+              <span>ML assist mode</span>
+              <select id="mlAssistMode">
+                <option value="advisory" selected>Advisory only</option>
+                <option value="auto_fit_mode">Auto fit mode</option>
+                <option value="efficiency">Efficiency</option>
+                <option value="quality">Quality</option>
+              </select>
+            </label>
+            <div class="task-list">
+              <input id="scanMToggle" class="hidden" type="checkbox" aria-hidden="true" />
+              <label class="toggle-row">
+                <input id="compareModelsToggle" type="checkbox" checked />
+                <span>Run M-model selection: M0-M3 baseline ranking plus bounded-n M4 rescue when the baseline is model-limited</span>
+              </label>
+              <label class="toggle-row">
+                <input id="postFitDiagnosticsToggle" type="checkbox" />
+                <span>Run post-fit diagnostics: slower physical candidates and core-window checks after the baseline result</span>
+              </label>
+            </div>
+            <div id="mValuesField" class="hidden">
+              <span class="group-label">Non-ohmic exponent range</span>
+              <div class="three-cols">
+                <label class="field compact-field">
+                  <span>Start</span>
+                  <input id="mScanStart" value="1.6" inputmode="decimal" />
+                </label>
+                <label class="field compact-field">
+                  <span>End</span>
+                  <input id="mScanEnd" value="3.4" inputmode="decimal" />
+                </label>
+                <label class="field compact-field">
+                  <span>Step</span>
+                  <input id="mScanStep" value="0.2" inputmode="decimal" />
+                </label>
+              </div>
+              <small>Reserved for internal exponent diagnostics.</small>
+            </div>
+            <div id="weightControls" class="hidden">
+              <span class="group-label">Weighted region loss</span>
+              <div class="weight-grid">
+                <label class="field compact-field">
+                  <span>Reverse</span>
+                  <input id="reverseWeight" type="number" step="0.1" value="1.5" />
+                </label>
+                <label class="field compact-field">
+                  <span>Near 0</span>
+                  <input id="nearZeroWeight" type="number" step="0.1" value="0.5" />
+                </label>
+                <label class="field compact-field">
+                  <span>Forward</span>
+                  <input id="forwardWeight" type="number" step="0.1" value="1.0" />
+                </label>
+                <label class="field compact-field">
+                  <span>High forward</span>
+                  <input id="highForwardWeight" type="number" step="0.1" value="1.5" />
+                </label>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel preview-panel">
+          <h2>File Preview</h2>
+          <div class="fit-summary compact-summary">
+            <span>Preview the first rows to confirm the correct sheet and selected current column before fitting.</span>
+          </div>
+          <button id="openDataPickerBtn" class="secondary full-width" type="button">Open Data Selector</button>
+          <div id="previewTable" class="preview-empty">No preview.</div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <section class="result-strip">
+          <div class="metric">
+            <span>Mean Error</span>
+            <strong id="meanError">--</strong>
+          </div>
+          <div class="metric">
+            <span>Max Error</span>
+            <strong id="maxError">--</strong>
+          </div>
+          <div class="metric">
+            <span>Effective Points</span>
+            <strong id="pointsCount">--</strong>
+          </div>
+          <div class="metric">
+            <span>Best n/m</span>
+            <strong id="bestM">--</strong>
+          </div>
+        </section>
+
+        <section id="fitDecisionPanel" class="fit-decision-panel hidden">
+          <div>
+            <strong>Review this fit</strong>
+            <span>Accept to save/export this session, or continue into manual fitting.</span>
+          </div>
+          <div class="record-actions">
+            <button id="manualFitBtn" class="secondary" type="button">Not Accept: Manual Fit</button>
+            <button id="acceptFitBtn" type="button">Accept Fit</button>
+          </div>
+        </section>
+
+        <section class="chart-panel">
+          <div class="tabs" role="tablist" aria-label="Result views">
+            <button class="tab active" data-view="fit" type="button">Fit Curves</button>
+            <button class="tab" data-view="error" type="button">Error</button>
+            <button class="tab" data-view="diagnostics" type="button">Diagnostics</button>
+            <button id="scanTab" class="tab hidden" data-view="scan" type="button">Exponent Diagnostic</button>
+          </div>
+          <div class="view active" id="view-fit">
+            <canvas id="fitCanvas" width="960" height="520"></canvas>
+            <div id="fitLegend" class="legend">
+              <span><i class="swatch measured"></i>Measured</span>
+              <span><i class="swatch fitted"></i>Fitted</span>
+              <span><i class="swatch diode"></i>Diode</span>
+              <span><i class="swatch ohmic"></i>Ohmic</span>
+              <span><i class="swatch nonohmic"></i>Non-ohmic</span>
+            </div>
+          </div>
+          <div class="view" id="view-error">
+            <canvas id="errorCanvas" width="960" height="520"></canvas>
+          </div>
+          <div class="view" id="view-diagnostics">
+            <div class="diagnostic-grid">
+              <div class="diagnostic-card">
+                <span>Initialization</span>
+                <strong id="diagInitialization">--</strong>
+                <small id="diagInitializationDetail">No fit yet.</small>
+              </div>
+              <div class="diagnostic-card">
+                <span>DE fallback</span>
+                <strong id="diagFallback">--</strong>
+                <small id="diagFallbackDetail">No fit yet.</small>
+              </div>
+              <div class="diagnostic-card">
+                <span>Identifiability</span>
+                <strong id="diagIdentifiability">--</strong>
+                <small id="diagIdentifiabilityDetail">No fit yet.</small>
+              </div>
+              <div class="diagnostic-card">
+                <span>Boundaries</span>
+                <strong id="diagBoundaries">--</strong>
+                <small id="diagBoundariesDetail">No fit yet.</small>
+              </div>
+            </div>
+
+            <section class="diagnostic-section">
+              <h3>Warnings</h3>
+              <ul id="diagnosticWarnings" class="notes">
+                <li>No diagnostics yet.</li>
+              </ul>
+            </section>
+
+            <section id="deepStrategySummary" class="deep-summary hidden" aria-live="polite">
+              <div>
+                <span>Diagnostic search</span>
+                <strong id="deepSummaryTitle">Not run</strong>
+                <small id="deepSummaryDetail">Run Diagnostic Fit to compare strategies.</small>
+              </div>
+              <div>
+                <span>Selected</span>
+                <strong id="deepSummarySelected">--</strong>
+                <small id="deepSummaryImprovement">--</small>
+              </div>
+              <div>
+                <span>n/m profile</span>
+                <strong id="deepSummaryM">--</strong>
+                <small id="deepSummaryMDetail">--</small>
+              </div>
+            </section>
+
+            <section id="strategySection" class="diagnostic-section hidden">
+              <h3>Strategy sweep</h3>
+              <table class="result-table">
+                <thead>
+                  <tr><th>Rank</th><th>Preset</th><th>Score</th><th>Mean</th><th>Max</th><th>Worst</th><th>Bounds</th><th>Warnings</th></tr>
+                </thead>
+                <tbody id="strategyRows"></tbody>
+              </table>
+            </section>
+
+            <section id="modelSection" class="diagnostic-section hidden">
+              <h3>Model diagnostics</h3>
+              <table class="result-table">
+                <thead>
+                  <tr><th>Rank</th><th>Model</th><th>BIC</th><th>Mean</th><th>Max</th><th>Free</th><th>Confidence</th><th>Decision</th></tr>
+                </thead>
+                <tbody id="modelRows"></tbody>
+              </table>
+            </section>
+          </div>
+          <div class="view" id="view-scan">
+            <table class="result-table">
+              <thead>
+                  <tr><th>Rank</th><th>n</th><th>m</th><th>Mean</th><th>Max</th><th>J0</th><th>Rs</th><th>Rsh</th><th>k</th></tr>
+              </thead>
+              <tbody id="scanRows"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <aside class="inspector">
+        <section class="panel">
+          <h2>Parameters</h2>
+          <div class="fit-summary">
+            <strong>Direct numeric editing is the default manual mode.</strong>
+            <span>Focus an input and use the mouse wheel for multiplicative adjustment. Default 5%, Shift 1%, Alt 20%.</span>
+          </div>
+          <div class="param-editor">
+            <div class="param-grid">
+              <label class="field compact-field">
+                <span id="editLabelJ0">J0</span>
+                <input id="editJ0" value="1e-9" inputmode="decimal" />
+              </label>
+              <label class="field compact-field">
+                <span id="editLabelRs">Rs</span>
+                <input id="editRs" value="1e3" inputmode="decimal" />
+              </label>
+              <label class="field compact-field">
+                <span id="editLabelRsh">Rsh</span>
+                <input id="editRsh" value="1e7" inputmode="decimal" />
+              </label>
+              <label class="field compact-field">
+                <span id="editLabelK">k</span>
+                <input id="editK" value="5e-7" inputmode="decimal" />
+              </label>
+              <label class="field compact-field">
+                <span>m</span>
+                <input id="editM" value="2.4" inputmode="decimal" />
+              </label>
+            </div>
+            <div class="param-help">
+              <span>Wheel up increases the active parameter. Wheel down decreases it.</span>
+              <span>J0, Rs, Rsh, k use multiplicative wheel adjustment. m uses additive wheel adjustment.</span>
+            </div>
+            <div class="param-actions">
+              <button id="useFitParamsBtn" class="secondary" type="button">Reset to Auto Fit</button>
+              <button id="optimizeFromParamsBtn" type="button">Refit From Current Params</button>
+            </div>
+            <label class="toggle-row">
+              <input id="liveAdjustToggle" type="checkbox" checked />
+              <span>Live parameter adjustment</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Region Error</h2>
+          <dl class="params">
+            <dt>Reverse</dt><dd id="regionReverse">--</dd>
+            <dt>Near 0</dt><dd id="regionNearZero">--</dd>
+            <dt>Forward</dt><dd id="regionForward">--</dd>
+            <dt>High +V</dt><dd id="regionHighForward">--</dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <h2>Core Diagnostics</h2>
+          <dl class="params">
+            <dt>Init</dt><dd id="coreInit">--</dd>
+            <dt>Init detail</dt><dd id="coreInitDetail">--</dd>
+            <dt>DE fallback</dt><dd id="coreFallback">--</dd>
+            <dt>Weak params</dt><dd id="coreWeakParams">--</dd>
+            <dt>Boundary hits</dt><dd id="coreBoundaryHits">--</dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <h2>Analysis Assistant</h2>
+          <div class="fit-summary compact-summary">
+            <span>The summary below is generated from the current fit. You can then ask the local assistant follow-up questions without calling any cloud model.</span>
+          </div>
+          <div id="assistantList" class="assistant-list">
+            <div class="assistant-item">
+              <strong>No analysis yet.</strong>
+              <span>Run a fit to generate structured interpretation and next-step suggestions.</span>
+            </div>
+          </div>
+          <div id="assistantMessages" class="assistant-messages">
+            <div class="assistant-message assistant-bot">
+              <strong>Local chat</strong>
+              <span>You can ask about collapse after window expansion, best m, weak parameters, or which region is limiting the fit.</span>
+            </div>
+          </div>
+          <div class="assistant-compose">
+            <textarea id="assistantQuestion" rows="3" placeholder="Ask about the current fit..." spellcheck="false"></textarea>
+            <div class="record-actions">
+              <button id="assistantClearBtn" class="secondary" type="button">Clear</button>
+              <button id="assistantSendBtn" type="button">Ask</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Save Record</h2>
+          <div class="fit-summary">
+            <strong>Accepted fits should be saved as standardized training records.</strong>
+            <span>Use checkboxes and dropdowns so returned data stays consistent for later centralized training.</span>
+          </div>
+          <div class="record-actions single-action">
+            <button id="openRecordFormBtn" type="button">Prepare Save</button>
+          </div>
+          <div id="recordForm" class="hidden">
+            <div class="label-grid">
+              <label class="field compact-field">
+                <span>Sample ID</span>
+                <input id="sampleId" placeholder="Device or sample name" />
+              </label>
+              <label class="field compact-field">
+                <span>Batch</span>
+                <input id="sampleBatch" placeholder="Batch or group" />
+              </label>
+            </div>
+            <label class="field compact-field">
+              <span>Comparison group</span>
+              <input id="comparisonGroup" placeholder="Reference sample or baseline group" />
+            </label>
+            <label class="toggle-row">
+              <input id="labelAccepted" type="checkbox" />
+              <span>Accepted fit</span>
+            </label>
+            <label class="toggle-row">
+              <input id="labelManualAdjusted" type="checkbox" />
+              <span>Manual adjustment used before acceptance</span>
+            </label>
+            <div class="label-grid">
+              <label class="field compact-field">
+                <span>Quality</span>
+                <select id="labelQuality">
+                  <option value="acceptable">Acceptable</option>
+                  <option value="good">Good</option>
+                  <option value="poor">Poor</option>
+                  <option value="reject">Reject</option>
+                </select>
+              </label>
+              <label class="field compact-field">
+                <span>Main issue after this run</span>
+                <select id="labelMainIssue">
+                  <option value="none">None</option>
+                  <option value="reverse_mismatch">Reverse mismatch</option>
+                  <option value="forward_mismatch">Forward mismatch</option>
+                  <option value="high_forward_mismatch">High-forward mismatch</option>
+                  <option value="boundary_hit">Boundary hit</option>
+                  <option value="parameter_coupling">Parameter coupling</option>
+                  <option value="wrong_model">Wrong model</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+            </div>
+            <label class="field">
+              <span>Interpretation tag</span>
+              <select id="labelHypothesis">
+                <option value="none">None</option>
+                <option value="leakage_reduced">Leakage reduced</option>
+                <option value="leakage_increased">Leakage increased</option>
+                <option value="recombination_changed">Recombination changed</option>
+                <option value="series_resistance_changed">Series resistance changed</option>
+                <option value="interface_passivation">Interface passivation</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+
+            <span class="group-label">Acceptance reasons</span>
+            <div class="check-grid" aria-label="Acceptance reasons">
+              <label><input type="checkbox" data-accept-reason="global_error_ok" /> Global error acceptable</label>
+              <label><input type="checkbox" data-accept-reason="reverse_region_ok" /> Reverse region acceptable</label>
+              <label><input type="checkbox" data-accept-reason="forward_region_ok" /> Forward region acceptable</label>
+              <label><input type="checkbox" data-accept-reason="high_forward_region_ok" /> High-forward acceptable</label>
+              <label><input type="checkbox" data-accept-reason="visual_fit_ok" /> Visual fit acceptable</label>
+              <label><input type="checkbox" data-accept-reason="parameter_plausible" /> Parameters plausible</label>
+            </div>
+
+            <span class="group-label">External evidence</span>
+            <div class="evidence-grid" aria-label="External evidence">
+              <label><input type="checkbox" data-evidence="crack" /> Crack</label>
+              <label><input type="checkbox" data-evidence="pinhole" /> Pinhole</label>
+              <label><input type="checkbox" data-evidence="morphology" /> Morphology</label>
+              <label><input type="checkbox" data-evidence="interlayer" /> Interlayer</label>
+              <label><input type="checkbox" data-evidence="reference_comparison" /> Reference</label>
+              <label><input type="checkbox" data-evidence="device_structure" /> Structure</label>
+            </div>
+
+            <span class="group-label">Suggested next actions</span>
+            <div class="check-grid" aria-label="Suggested next actions">
+              <label><input type="checkbox" data-next-action="review_nonohmic_exponent" /> Review non-ohmic exponent</label>
+              <label><input type="checkbox" data-next-action="retry_weighted" /> Retry weighted fit</label>
+              <label><input type="checkbox" data-next-action="manual_refit_needed" /> Manual refit needed</label>
+              <label><input type="checkbox" data-next-action="collect_more_evidence" /> Collect more evidence</label>
+              <label><input type="checkbox" data-next-action="reject_for_training" /> Reject for training</label>
+            </div>
+
+            <div class="record-actions">
+              <button id="cancelRecordFormBtn" class="secondary" type="button">Cancel</button>
+              <button id="saveRecordBtn" type="button">Save Accepted Fit</button>
+            </div>
+          </div>
+          <div id="recordStatus" class="meta compact-meta">No record saved.</div>
+        </section>
+
+        <section class="panel">
+          <h2>Training Package</h2>
+          <div class="fit-summary compact-summary">
+            <span>This export is the standard offline return package for published builds. It contains records and dataset manifests for centralized training later.</span>
+          </div>
+          <details class="export-menu full-width">
+            <summary>Export</summary>
+            <div class="export-menu-list">
+              <button id="exportComponentsXlsxBtn" class="secondary full-width" type="button">Components XLSX</button>
+              <button id="exportComponentsCsvBtn" class="secondary full-width" type="button">Components CSV</button>
+              <button id="exportFitpackBtn" class="secondary full-width" type="button">Fitpack</button>
+              <button id="exportPackageBtn" class="secondary full-width" type="button">Training Package</button>
+            </div>
+          </details>
+          <div id="recordsSummary" class="meta compact-meta">No records loaded.</div>
+          <div id="recordsList" class="records-list"></div>
+        </section>
+      </aside>
+    </div>
+    <div id="loadingOverlay" class="loading-overlay hidden" aria-live="polite">
+      <div class="loading-card">
+        <strong id="loadingTitle" class="loading-fill-text" data-loading-text="Running fit...">Running fit...</strong>
+        <span id="loadingHint">The plot will update after the current fitting task finishes.</span>
+      </div>
+    </div>
+    <div id="dataPickerOverlay" class="data-picker-overlay hidden" aria-live="polite">
+      <section class="data-picker-dialog glass-panel" aria-label="Data selector">
+        <header class="data-picker-header">
+          <div>
+            <h2>Select Data</h2>
+            <span id="dataPickerMeta">No file loaded.</span>
+          </div>
+          <div class="data-picker-actions flow-nav-actions">
+            <button id="dataPickerCloseBtn" class="flow-nav-button flow-return-button icon-round" type="button" aria-label="Back">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button id="dataPickerHomeBtn" class="flow-nav-button flow-home-button icon-round" type="button" aria-label="Home">
+              <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.5 11.2 12 5l7.5 6.2" />
+                <path d="M6.8 10.1v8.2c0 .9.6 1.5 1.5 1.5h7.4c.9 0 1.5-.6 1.5-1.5v-8.2" />
+                <path d="M10 19.8v-5.4h4v5.4" />
+              </svg>
+            </button>
+          </div>
+        </header>
+        <main class="data-picker-workbench">
+          <section class="data-grid-panel glass-panel" aria-label="Workbook grid">
+            <div class="data-grid-panel-head">
+              <div>
+                <strong>Workbook</strong>
+              </div>
+            </div>
+            <div id="dataGrid" class="data-grid-shell">
+              <div class="preview-empty">No workbook grid loaded.</div>
+            </div>
+          </section>
+          <aside class="data-selection-panel" aria-label="Selection controls">
+            <div class="selection-readout soft-panel">
+              <span>Current selection</span>
+              <strong id="dataPickerSelectionText">Click a start cell, then click an end cell in the same column.</strong>
+            </div>
+            <div class="data-picker-toolbar">
+              <div class="data-voltage-row">
+                <label class="field compact-field soft-panel">
+                  <span>Voltage start</span>
+                  <input id="pickerVoltageStart" type="number" step="0.01" value="-0.5" />
+                </label>
+                <label class="field compact-field soft-panel">
+                  <span>Voltage step</span>
+                  <input id="pickerVoltageStep" type="number" step="0.01" value="0.01" />
+                </label>
+              </div>
+              <div class="data-picker-tool-row">
+                <div class="data-range-tabs motion-tabs" role="tablist" aria-label="Generated voltage preset">
+                  <button id="dataCoreRangeBtn" class="active" role="tab" aria-selected="true" type="button">Core</button>
+                  <button id="dataFullRangeBtn" role="tab" aria-selected="false" type="button">Full</button>
+                </div>
+                <button id="clearDataSelectionBtn" class="icon-round" type="button">
+                  <svg class="data-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 7l10 10" />
+                    <path d="M17 7 7 17" />
+                  </svg>
+                  <span>Clear</span>
+                </button>
+              </div>
+            </div>
+            <section class="data-mini-preview-card chart-surface" aria-label="Selection preview">
+              <div class="data-mini-preview-head">
+                <span>Preview curve</span>
+                <small id="dataPickerPreviewMeta">Select a current range.</small>
+              </div>
+              <canvas id="dataPickerPreviewCanvas" width="360" height="180"></canvas>
+              <button id="applyDataSelectionBtn" class="primary-pill" type="button">Use Selection</button>
+            </section>
+          </aside>
+        </main>
+      </section>
+    </div>
+    <div id="chartTooltip" class="chart-tooltip hidden"></div>
+    <script src="/static/app.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/01-state-contract.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/02-result-state.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/03-param-controls.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/04-dom-contract.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/05-home-effects.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/06-format-navigation.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/07-params-manual-capability.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/08-backend-requests.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/09-fit-series-record-payload.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/10-records-exports-fitpack.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/11-txt-import.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/12-data-picker.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/13-fit-execution.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/14-result-rendering.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/15-save-device.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/16-diagnostics-assistant.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/17-charts-redraw.js?v=20260620-save-edit-01"></script>
+    <script src="/static/js/18-events-bootstrap.js?v=20260620-save-edit-01"></script>
+  </body>
+</html>

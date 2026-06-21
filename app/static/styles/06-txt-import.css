@@ -1,0 +1,324 @@
+/* ==========================================================================
+   TXT import workflow
+   ========================================================================== */
+
+.txt-import-page {
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #f8fafc 0%, #eaf0f7 100%);
+}
+
+.txt-import-header {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.txt-import-header h2 {
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1.15;
+  margin-bottom: 3px;
+  text-transform: none;
+}
+
+.txt-import-header span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.txt-import-grid {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(560px, 1fr) 390px;
+  grid-template-rows: minmax(0, 1fr);
+  align-items: stretch;
+  gap: 14px;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.txt-preview-panel,
+.txt-block-panel,
+.txt-diagnostics-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.txt-preview-panel {
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) minmax(0, auto);
+  overflow: hidden;
+}
+
+.txt-preview-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(248, 250, 252, 0.82);
+}
+
+.segmented-control {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.segmented-control button {
+  min-height: 32px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  box-shadow: none;
+}
+
+.segmented-control button:last-child {
+  border-right: 0;
+}
+
+.segmented-control button.active {
+  background: var(--blue);
+  color: white;
+}
+
+.segmented-control button:hover:not(.active) {
+  background: #eef6ff;
+  color: #1d4ed8;
+  box-shadow: none;
+  transform: none;
+}
+
+.txt-fit-range {
+  flex: 0 1 360px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.txt-fit-range input {
+  width: 92px;
+  min-height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--text);
+  font: 12px Consolas, monospace;
+  text-align: right;
+}
+
+#txtPreviewCanvas {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: block;
+}
+
+.txt-diagnostics-panel {
+  min-height: 0;
+  max-height: 220px;
+  margin: 0 12px 12px;
+  padding: 12px;
+  overflow: auto;
+}
+
+.txt-diagnostics-panel h2 {
+  margin-bottom: 8px;
+}
+
+.txt-diagnostics-list {
+  display: grid;
+  gap: 8px;
+}
+
+.txt-diagnostic-item {
+  display: grid;
+  gap: 5px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel-soft);
+  color: var(--text);
+  font-size: 12px;
+}
+
+.txt-diagnostic-item.warning {
+  border-color: rgba(217, 119, 6, 0.35);
+  background: #fffbeb;
+}
+
+.txt-diagnostic-item.error {
+  border-color: rgba(220, 38, 38, 0.32);
+  background: #fef2f2;
+}
+
+.txt-diagnostic-item pre {
+  max-height: 160px;
+  margin: 0;
+  padding: 8px;
+  overflow: auto;
+  border-radius: 6px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.txt-block-panel {
+  min-height: 0;
+  max-height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.txt-block-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(248, 250, 252, 0.82);
+}
+
+.txt-block-panel-head strong,
+.txt-block-panel-head span {
+  display: block;
+}
+
+.txt-block-panel-head span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.txt-block-list {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
+}
+
+.txt-block-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  margin-bottom: 8px;
+  transition: border-color 0.14s ease, box-shadow 0.14s ease, background-color 0.14s ease;
+}
+
+.txt-block-row.is-selected {
+  border-color: rgba(37, 99, 235, 0.45);
+  background: #f8fbff;
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+.txt-block-row.has-error {
+  border-color: rgba(220, 38, 38, 0.28);
+}
+
+.txt-block-row input {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+}
+
+.txt-block-main {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.txt-block-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.txt-block-title strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.txt-block-title span {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.txt-block-meta,
+.txt-block-ranges,
+.txt-block-warning {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.txt-block-ranges {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  font-family: Consolas, monospace;
+}
+
+.txt-block-warning {
+  color: var(--amber);
+}
+
+.fit-decision-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.fit-decision-panel strong,
+.fit-decision-panel span {
+  display: block;
+}
+
+.fit-decision-panel span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}

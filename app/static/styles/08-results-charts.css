@@ -1,0 +1,369 @@
+/* ==========================================================================
+   Workbench results, charts, and diagnostics
+   ========================================================================== */
+
+.chart-tooltip {
+  position: fixed;
+  z-index: 100;
+  display: grid;
+  gap: 3px;
+  min-width: 150px;
+  padding: 9px 10px;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.18);
+  pointer-events: none;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.chart-tooltip strong,
+.chart-tooltip span {
+  display: block;
+}
+
+.chart-tooltip span {
+  color: var(--muted);
+}
+
+.result-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 0;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.metric {
+  padding: 14px;
+  border-right: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, #ffffff, #f8fbff);
+}
+
+.metric:last-child {
+  border-right: 0;
+}
+
+.metric span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+.chart-panel {
+  padding: 12px;
+}
+
+.tabs {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+.diagnostic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.diagnostic-card {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: var(--panel-soft);
+}
+
+.diagnostic-card span,
+.diagnostic-card strong,
+.diagnostic-card small {
+  display: block;
+}
+
+.diagnostic-card span,
+.diagnostic-card small {
+  color: var(--muted);
+}
+
+.diagnostic-card span {
+  font-size: 12px;
+}
+
+.diagnostic-card strong {
+  font-size: 16px;
+  margin-top: 6px;
+}
+
+.diagnostic-card small {
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.diagnostic-section + .diagnostic-section {
+  margin-top: 14px;
+}
+
+.diagnostic-section h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+
+.deep-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.deep-summary div {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff, #eef6ff);
+}
+
+.deep-summary span,
+.deep-summary strong,
+.deep-summary small {
+  display: block;
+}
+
+.deep-summary span,
+.deep-summary small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.deep-summary strong {
+  margin-top: 5px;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deep-summary small {
+  margin-top: 5px;
+  line-height: 1.35;
+}
+
+canvas {
+  width: 100%;
+  height: 520px;
+  display: block;
+  background:
+    linear-gradient(180deg, #ffffff, #fbfdff);
+}
+
+.legend {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.legend span {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 12px;
+}
+
+.swatch {
+  display: inline-block;
+  width: 18px;
+  height: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.measured { background: var(--plot-data); }
+.fitted { background: var(--plot-total); }
+.diode { background: var(--plot-diode); }
+.recombination { background: #7c3aed; }
+.diffusion { background: #0f766e; }
+.ohmic { background: var(--plot-ohmic); }
+.nonohmic { background: var(--plot-nonohmic); }
+.swatch.overlay {
+  border-top: 1px dashed rgba(255, 255, 255, 0.55);
+}
+
+.params {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  row-gap: 10px;
+  margin: 0;
+}
+
+.params dt {
+  color: var(--muted);
+}
+
+.params dd {
+  margin: 0;
+  font-family: Consolas, monospace;
+  text-align: right;
+}
+
+.param-editor {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.param-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.param-grid label:last-child {
+  grid-column: 1 / -1;
+}
+
+.param-grid input {
+  font-family: Consolas, monospace;
+}
+
+.param-help {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 10px;
+}
+
+.knob-toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: end;
+  margin-top: 10px;
+}
+
+.knob-toolbar button {
+  padding: 0 10px;
+}
+
+.knob-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.stepper-grid {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.stepper-row {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.stepper-row span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.stepper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tiny-step {
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 6px;
+}
+
+.continuous-panel {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #f8fafc;
+}
+
+.continuous-panel summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.slider-field {
+  display: grid;
+  gap: 4px;
+}
+
+.slider-field span {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.slider-field output {
+  font-family: Consolas, monospace;
+  color: var(--text);
+}
+
+.slider-field input[type="range"] {
+  width: 100%;
+  height: 20px;
+  padding: 0;
+  accent-color: var(--blue);
+}
+
+.param-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.param-actions button {
+  padding: 0 8px;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.toggle-row input {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+}

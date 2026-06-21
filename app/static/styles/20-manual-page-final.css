@@ -1,0 +1,547 @@
+/* ==========================================================================
+   Final Manual adjustment surface
+   Extracted from accept/review override passes to make Manual ownership explicit.
+   ========================================================================== */
+
+.manual-page {
+  background:
+    radial-gradient(ellipse at 18% 16%, rgba(120, 242, 229, 0.045), transparent 34%),
+    radial-gradient(ellipse at 82% 78%, rgba(127, 214, 255, 0.032), transparent 36%),
+    #04070b !important;
+}
+
+.manual-page::before,
+.manual-page::after {
+  display: none !important;
+  animation: none !important;
+}
+
+.manual-layout {
+  width: min(100% - 36px, 1220px);
+  margin: 0 auto;
+  padding: 20px 0 22px;
+}
+
+.manual-page .data-picker-header {
+  width: 100%;
+  margin: 0 0 12px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.manual-page .data-picker-header h2 {
+  color: #f2fbff;
+  font-size: 20px;
+  font-weight: 480;
+  letter-spacing: 0;
+}
+
+.manual-page #manualSummary,
+.manual-page .data-picker-step {
+  color: rgba(217, 231, 241, 0.58);
+}
+
+.manual-grid {
+  display: grid;
+}
+
+.manual-controls {
+  align-self: start;
+  gap: 11px;
+}
+
+.manual-param-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.manual-param-grid .field,
+.manual-live-status,
+.manual-history-item,
+.manual-history-empty {
+  border: 0;
+}
+
+.manual-param-grid .field span,
+.manual-param-delta,
+.manual-live-status,
+.manual-history-header,
+.manual-history-empty {
+  color: rgba(217, 231, 241, 0.58);
+}
+
+.manual-history {
+  margin-top: 0;
+}
+
+.manual-history-actions #manualAddCheckpointBtn,
+.manual-history-actions #manualClearHistoryBtn {
+  width: 30px;
+  height: 30px;
+  min-height: 30px;
+  border-radius: 50%;
+  background: rgba(242, 251, 255, 0.9);
+  color: #081116;
+}
+
+.manual-bottom-actions {
+  justify-content: center;
+}
+
+#manualAcceptBtn {
+  width: auto;
+  min-width: 118px;
+  max-width: max-content;
+  min-height: 39px;
+  padding: 0 18px;
+}
+
+@media (max-width: 900px) {
+  .manual-layout {
+    width: min(100% - 24px, 760px);
+  }
+
+  .manual-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .manual-controls {
+    width: min(360px, 100%);
+    justify-self: center;
+  }
+}
+
+/* Manual layout stability */
+
+.manual-page .manual-layout {
+  width: min(100% - 36px, 1240px);
+}
+
+.manual-page .manual-grid {
+  grid-template-columns: minmax(0, 820px) minmax(276px, 304px) !important;
+  justify-content: center;
+  align-items: start;
+  gap: 18px;
+}
+
+.manual-page .review-chart-panel {
+  width: min(820px, 100%);
+  min-width: 0;
+  padding: 0 !important;
+  gap: 10px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.manual-page #manualFitCanvas {
+  display: block;
+  width: 100%;
+  height: clamp(420px, 54vh, 520px) !important;
+  aspect-ratio: 960 / 520;
+  border: 0 !important;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.014), rgba(255, 255, 255, 0.004)),
+    rgba(3, 7, 12, 0.48) !important;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.055) !important;
+}
+
+.manual-page .manual-history {
+  margin-top: 0;
+  padding: 10px;
+  border: 0 !important;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.016), rgba(255, 255, 255, 0.004)),
+    rgba(5, 10, 15, 0.34) !important;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.04) !important;
+}
+
+.manual-page .manual-controls {
+  width: 100%;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.manual-page .manual-param-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.manual-page .manual-param-grid .field {
+  min-width: 0;
+  min-height: 76px;
+  display: grid;
+  grid-template-rows: auto minmax(28px, auto) auto;
+  gap: 5px;
+  padding: 10px;
+  border: 0 !important;
+  border-radius: 13px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.016), rgba(255, 255, 255, 0.004)),
+    rgba(6, 12, 18, 0.46) !important;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.05) !important;
+}
+
+.manual-page .manual-param-grid .field:focus-within {
+  background:
+    linear-gradient(180deg, rgba(120, 242, 229, 0.05), rgba(127, 214, 255, 0.012)),
+    rgba(7, 14, 21, 0.58) !important;
+  box-shadow: inset 0 0 0 1px rgba(120, 242, 229, 0.13) !important;
+}
+
+.manual-page .manual-param-grid .field span {
+  min-width: 0;
+  color: rgba(217, 231, 241, 0.58);
+  font-size: 11px;
+}
+
+.manual-page .manual-param-grid input,
+.manual-page .manual-controls input {
+  width: 100%;
+  min-width: 0;
+  min-height: 28px;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(242, 251, 255, 0.94);
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 11.5px;
+  line-height: 1.2;
+}
+
+.manual-page .manual-param-grid input:focus,
+.manual-page .manual-controls input:focus {
+  outline: none;
+  box-shadow: inset 0 -1px 0 rgba(120, 242, 229, 0.5) !important;
+}
+
+.manual-page .manual-param-wide {
+  grid-column: 1 / -1;
+  width: min(146px, 100%);
+  justify-self: center;
+}
+
+.manual-page .manual-live-status {
+  margin-top: 10px;
+  border: 0 !important;
+  border-radius: 13px;
+  background: rgba(5, 10, 15, 0.28) !important;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.04) !important;
+}
+
+.manual-page .manual-bottom-actions {
+  margin-top: 10px;
+}
+
+/* Manual sticky controls */
+
+#manualPage.manual-page .manual-controls {
+  align-self: start;
+  position: sticky;
+  top: 14px;
+}
+
+/* Manual review parity and stable status line */
+
+#manualPage.manual-page .manual-layout {
+  width: min(1180px, calc(100vw - 40px));
+}
+
+#manualPage.manual-page .manual-grid {
+  grid-template-columns: minmax(540px, 760px) minmax(330px, 360px) !important;
+  justify-content: center;
+  gap: 18px;
+}
+
+#manualPage.manual-page .review-chart-panel {
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 12px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: visible;
+}
+
+#manualPage.manual-page #manualFitCanvas {
+  width: 100%;
+  height: clamp(410px, 56vh, 560px) !important;
+  aspect-ratio: 960 / 520;
+  border: 0 !important;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.008)),
+    rgba(7, 15, 22, 0.42) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(148, 163, 184, 0.042),
+    0 18px 52px rgba(0, 0, 0, 0.12) !important;
+}
+
+#manualPage.manual-page .manual-history {
+  min-height: 128px;
+  max-height: none;
+  margin-top: 0;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: visible;
+}
+
+#manualPage.manual-page .manual-history-header {
+  padding: 0 2px 8px;
+}
+
+#manualPage.manual-page .manual-history-list {
+  min-height: 92px;
+  max-height: none;
+  gap: 9px;
+  padding: 2px 0 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#manualPage.manual-page .manual-history-item {
+  flex: 0 0 238px;
+  width: 238px;
+  min-width: 238px;
+  max-width: 238px;
+  min-height: 96px;
+  max-height: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24px;
+  grid-template-rows: auto auto 1fr;
+  gap: 4px 8px;
+  padding: 12px;
+  border: 0 !important;
+  border-radius: 15px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0.004)),
+    rgba(8, 15, 22, 0.38) !important;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.042) !important;
+  overflow: hidden;
+}
+
+#manualPage.manual-page .manual-history-star {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  justify-self: end;
+}
+
+#manualPage.manual-page .manual-history-star,
+#manualPage.manual-page .manual-history-item.is-starred .manual-history-star {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: rgba(217, 231, 241, 0.52);
+  box-shadow: none !important;
+  filter: none !important;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", var(--font-ui), sans-serif;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1;
+  text-shadow: none !important;
+}
+
+#manualPage.manual-page .manual-history-star::before,
+#manualPage.manual-page .manual-history-star::after {
+  content: none !important;
+  display: none !important;
+}
+
+#manualPage.manual-page .manual-history-star:hover,
+#manualPage.manual-page .manual-history-star:focus-visible {
+  outline: 0;
+  color: rgba(245, 210, 142, 0.96);
+  transform: translateY(-1px) rotate(-8deg) scale(1.08);
+}
+
+#manualPage.manual-page .manual-history-item.is-starred .manual-history-star {
+  color: #f5d28e;
+  animation: manualPlainStarPop 360ms cubic-bezier(0.18, 1.15, 0.28, 1);
+}
+
+@keyframes manualPlainStarPop {
+  0% {
+    transform: scale(0.92) rotate(-12deg);
+  }
+
+  56% {
+    transform: scale(1.16) rotate(8deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+#manualPage.manual-page .manual-history-item strong,
+#manualPage.manual-page .manual-history-item > span:not(.manual-history-star) {
+  grid-column: 1 / -1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#manualPage.manual-page .manual-history-item strong {
+  grid-column: 1;
+}
+
+#manualPage.manual-page .manual-history-param-row {
+  grid-column: 1 / -1;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-self: end;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: normal;
+}
+
+#manualPage.manual-page .manual-history-param-row em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#manualPage.manual-page .manual-live-status {
+  min-height: 36px;
+  max-height: 36px;
+  display: block;
+  padding: 0 10px !important;
+  line-height: 36px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 820px) {
+  #manualPage.manual-page .manual-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  #manualPage.manual-page .review-chart-panel {
+    width: 100%;
+  }
+
+  #manualPage.manual-page .manual-controls {
+    position: static;
+    width: min(340px, 100%);
+    justify-self: center;
+  }
+}
+
+/* UI pass 20b: Review chart parity and clean empty history */
+
+#manualPage.manual-page #manualFitCanvas {
+  margin-top: 2px;
+  height: clamp(410px, 56vh, 560px) !important;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.016), rgba(255, 255, 255, 0.004)),
+    rgba(3, 7, 12, 0.44) !important;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.05) !important;
+}
+
+#manualPage.manual-page .manual-history-list:empty {
+  min-height: 18px;
+  padding: 0;
+}
+
+#manualPage.manual-page .manual-bottom-actions {
+  overflow: visible;
+  padding-bottom: 12px;
+}
+
+#manualPage.manual-page #manualAcceptBtn {
+  position: relative;
+  overflow: visible;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.62),
+    0 8px 20px rgba(0, 0, 0, 0.11) !important;
+}
+
+#manualPage.manual-page #manualAcceptBtn::after {
+  content: "";
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: -9px;
+  height: 15px;
+  z-index: -1;
+  border-radius: 999px;
+  background: rgba(120, 242, 229, 0.45);
+  filter: blur(12px);
+  opacity: 0;
+  transform: translateY(4px) scaleX(0.92);
+  transition:
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+#manualPage.manual-page #manualAcceptBtn:hover:not(:disabled)::after,
+#manualPage.manual-page #manualAcceptBtn:focus-visible::after,
+#manualPage.manual-page #manualAcceptBtn:active::after {
+  opacity: 0.86;
+  transform: translateY(0) scaleX(1);
+}
+/* UI pass 20c: stable manual timeline title and action row */
+
+#manualPage.manual-page .manual-history {
+  min-height: 154px;
+}
+
+#manualPage.manual-page .manual-history-header {
+  min-height: 36px;
+  align-items: center;
+  padding: 0 2px 10px;
+}
+
+#manualPage.manual-page .manual-history-header > span {
+  color: rgba(242, 251, 255, 0.94) !important;
+  font-family: var(--font-ui), "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+  font-size: 13.5px !important;
+  font-weight: 520 !important;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+#manualPage.manual-page .manual-history-actions {
+  align-self: center;
+}
+
+#manualPage.manual-page .manual-history-list,
+#manualPage.manual-page .manual-history-list:empty {
+  min-height: 106px;
+  padding: 2px 0 8px;
+}

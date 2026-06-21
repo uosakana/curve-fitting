@@ -1,0 +1,961 @@
+/* UI pass 25: Select Data compact layout, typography, controls, and preview grid */
+
+#dataPickerOverlay,
+#dataPickerOverlay * {
+  font-family: var(--font-ui);
+  letter-spacing: 0;
+}
+
+#dataPickerOverlay.data-picker-overlay {
+  align-items: center;
+  padding: clamp(16px, 3vw, 28px);
+}
+
+#dataPickerOverlay .data-picker-dialog {
+  width: min(1160px, calc(100vw - 44px));
+  height: min(760px, calc(100vh - 44px));
+  min-height: min(620px, calc(100vh - 44px));
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.024), rgba(255, 255, 255, 0.008)),
+    rgba(5, 9, 14, 0.78);
+  box-shadow: 0 28px 86px rgba(0, 0, 0, 0.32);
+  overflow: hidden;
+}
+
+#dataPickerOverlay .data-picker-header {
+  min-height: 62px;
+  padding: 12px 16px;
+  border-bottom: 0;
+  background: rgba(5, 9, 14, 0.52);
+  box-shadow: inset 0 -1px 0 rgba(148, 163, 184, 0.07);
+}
+
+#dataPickerOverlay .data-picker-header h2 {
+  font-size: 16px;
+  font-weight: 520;
+  line-height: 1.15;
+}
+
+#dataPickerOverlay #dataPickerMeta {
+  font-size: 11px;
+  font-weight: 420;
+}
+
+#dataPickerOverlay .data-picker-workbench {
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 12px;
+  padding: 12px;
+}
+
+#dataPickerOverlay .data-grid-panel,
+#dataPickerOverlay .data-selection-panel,
+#dataPickerOverlay .data-mini-preview-card,
+#dataPickerOverlay .selection-readout,
+#dataPickerOverlay .data-picker-toolbar .compact-field {
+  border: 0;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0.008)),
+    rgba(7, 12, 18, 0.66);
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.075);
+}
+
+#dataPickerOverlay .data-grid-panel {
+  border-radius: 16px;
+}
+
+#dataPickerOverlay .data-grid-panel-head {
+  min-height: 42px;
+  padding: 9px 13px;
+  border-bottom-color: rgba(148, 163, 184, 0.07);
+}
+
+#dataPickerOverlay .data-grid-panel-head strong,
+#dataPickerOverlay .data-mini-preview-head span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+#dataPickerOverlay .data-selection-panel {
+  gap: 10px;
+  padding: 12px;
+}
+
+#dataPickerOverlay .selection-readout {
+  min-height: 70px;
+  padding: 11px 12px;
+}
+
+#dataPickerOverlay .selection-readout span {
+  color: rgba(217, 231, 241, 0.7);
+  font-size: 11px;
+  font-weight: 430;
+}
+
+#dataPickerOverlay .selection-readout strong {
+  color: #f2fbff;
+  font-size: 12.5px;
+  font-weight: 470;
+  line-height: 1.36;
+}
+
+#dataPickerOverlay .data-picker-toolbar .compact-field {
+  min-height: 60px;
+  padding: 9px 10px;
+}
+
+#dataPickerOverlay .data-picker-toolbar .compact-field span {
+  font-size: 10.5px;
+  font-weight: 430;
+}
+
+#dataPickerOverlay .data-picker-toolbar input {
+  min-height: 28px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(3, 7, 12, 0.5);
+  color: #f4fbff;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.07);
+  font-family: "Inter", var(--font-ui);
+  font-size: 12px;
+  font-weight: 430;
+  font-variant-numeric: tabular-nums;
+}
+
+#dataPickerOverlay .flow-nav-button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(226, 246, 241, 0.92));
+  color: #081116;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 10px 26px rgba(91, 214, 196, 0.13);
+}
+
+#dataPickerOverlay .flow-nav-button:hover:not(:disabled),
+#dataPickerOverlay .flow-nav-button:focus-visible {
+  background: linear-gradient(180deg, #ffffff, #e9faf6);
+  color: #061014;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.64),
+    0 12px 30px rgba(91, 214, 196, 0.18);
+  transform: translateY(-1px) scale(1.025);
+}
+
+#dataPickerOverlay .data-grid-shell,
+#dataPickerOverlay .data-grid-scroll {
+  background: #050910;
+}
+
+#dataPickerOverlay .data-grid-table {
+  font-family: "Inter", var(--font-ui);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+#dataPickerOverlay .data-grid-table th,
+#dataPickerOverlay .data-grid-table td {
+  height: 28px;
+  border-color: rgba(148, 163, 184, 0.055);
+  font-weight: 430;
+}
+
+#dataPickerOverlay .data-grid-table td {
+  color: rgba(232, 244, 252, 0.66);
+  background: rgba(6, 10, 16, 0.96);
+}
+
+#dataPickerOverlay .data-grid-table tbody tr:hover td {
+  background: rgba(9, 17, 24, 0.98);
+}
+
+#dataPickerOverlay .data-grid-table td:hover {
+  box-shadow: none;
+}
+
+#dataPickerOverlay .data-grid-table td.current-selection,
+#dataPickerOverlay .data-grid-table td.current-selection:hover,
+#dataPickerOverlay .data-grid-table td.current-selection:active,
+#dataPickerOverlay .data-grid-shell.is-selecting .data-grid-table td.current-selection {
+  background:
+    linear-gradient(90deg, rgba(120, 242, 229, 0.11), rgba(127, 214, 255, 0.045)),
+    rgba(8, 17, 23, 0.98) !important;
+  color: rgba(242, 255, 253, 0.92) !important;
+  font-weight: 500;
+  box-shadow: none !important;
+}
+
+#dataPickerOverlay .data-grid-table td.selection-start,
+#dataPickerOverlay .data-grid-table td.selection-end,
+#dataPickerOverlay .data-grid-table td.selection-single {
+  background:
+    linear-gradient(90deg, rgba(120, 242, 229, 0.18), rgba(127, 214, 255, 0.07)),
+    rgba(8, 19, 25, 0.98) !important;
+  box-shadow: none !important;
+}
+
+#dataPickerOverlay .data-mini-preview-card {
+  min-height: 206px;
+  gap: 8px;
+  padding: 12px;
+}
+
+#dataPickerPreviewCanvas {
+  height: 158px;
+  border: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), rgba(255, 255, 255, 0.004)),
+    rgba(3, 7, 12, 0.58) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.055);
+}
+
+#dataPickerOverlay #applyDataSelectionBtn {
+  min-width: 116px;
+  min-height: 38px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media (max-width: 980px) {
+  #dataPickerOverlay .data-picker-dialog {
+    height: min(860px, calc(100vh - 28px));
+    min-height: 0;
+  }
+
+  #dataPickerOverlay .data-picker-workbench {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* UI pass 26: unframe Select Data controls and strengthen selection feedback */
+
+#dataPickerOverlay .data-picker-dialog {
+  width: min(1180px, calc(100vw - 44px));
+  height: min(790px, calc(100vh - 44px));
+}
+
+#dataPickerOverlay .data-picker-workbench {
+  grid-template-columns: minmax(0, 1fr) 370px;
+}
+
+#dataPickerOverlay .data-selection-panel {
+  padding: 8px 4px 8px 8px;
+  background: transparent;
+  box-shadow: none;
+}
+
+#dataPickerOverlay .selection-readout,
+#dataPickerOverlay .data-picker-toolbar .compact-field,
+#dataPickerOverlay .data-mini-preview-card {
+  background: transparent;
+  box-shadow: none;
+}
+
+#dataPickerOverlay .selection-readout {
+  min-height: 62px;
+  padding: 4px 6px 8px;
+}
+
+#dataPickerOverlay .data-picker-toolbar {
+  gap: 12px;
+}
+
+#dataPickerOverlay .data-voltage-row {
+  gap: 12px;
+}
+
+#dataPickerOverlay .data-picker-toolbar .compact-field {
+  min-height: auto;
+  gap: 6px;
+  padding: 0;
+}
+
+#dataPickerOverlay .data-picker-toolbar .compact-field span {
+  color: rgba(120, 242, 229, 0.78);
+  font-size: 11.5px;
+  font-weight: 440;
+}
+
+#dataPickerOverlay .data-picker-toolbar input {
+  min-height: 34px;
+  padding: 0 10px;
+  color: #cffffa;
+  font-size: 13.5px;
+  font-weight: 450;
+  background:
+    linear-gradient(180deg, rgba(120, 242, 229, 0.055), rgba(255, 255, 255, 0.006)),
+    rgba(3, 7, 12, 0.48);
+}
+
+#dataPickerOverlay .data-picker-tool-row {
+  gap: 8px;
+}
+
+#dataPickerOverlay #dataCoreRangeBtn.active,
+#dataPickerOverlay #dataFullRangeBtn.active {
+  background:
+    linear-gradient(180deg, rgba(120, 242, 229, 0.92), rgba(159, 247, 200, 0.78));
+  color: #031018;
+  box-shadow: 0 10px 26px rgba(120, 242, 229, 0.16);
+  transform: translateY(-1px);
+}
+
+#dataPickerOverlay #dataCoreRangeBtn.active::after,
+#dataPickerOverlay #dataFullRangeBtn.active::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-left: 2px;
+  border-radius: 999px;
+  background: rgba(3, 16, 24, 0.78);
+}
+
+#dataPickerOverlay .data-grid-table td.selection-start,
+#dataPickerOverlay .data-grid-table td.selection-single {
+  background:
+    linear-gradient(135deg, rgba(120, 242, 229, 0.44), rgba(127, 214, 255, 0.18) 58%, rgba(216, 196, 255, 0.14)),
+    rgba(9, 24, 29, 0.98) !important;
+  color: #ffffff !important;
+  animation: dataStartCellGlow 760ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+#dataPickerOverlay .data-grid-table td.selection-end:not(.selection-single) {
+  background:
+    linear-gradient(135deg, rgba(127, 214, 255, 0.22), rgba(120, 242, 229, 0.12)),
+    rgba(8, 19, 25, 0.98) !important;
+}
+
+@keyframes dataStartCellGlow {
+  0% {
+    filter: brightness(0.92);
+  }
+  45% {
+    filter: brightness(1.34);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+#dataPickerOverlay .data-mini-preview-card {
+  min-height: 292px;
+  padding: 6px 2px 0;
+}
+
+#dataPickerPreviewCanvas {
+  height: 226px;
+  border-radius: 14px;
+}
+
+@media (max-width: 980px) {
+  #dataPickerOverlay .data-picker-workbench {
+    grid-template-columns: 1fr;
+  }
+
+  #dataPickerOverlay .data-selection-panel {
+    padding: 8px;
+  }
+}
+
+/* UI pass 27: undo overdone Core/Full and voltage input styling */
+
+#dataPickerOverlay .data-picker-toolbar input {
+  background: rgba(3, 7, 12, 0.5);
+  color: #f4fbff;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.07);
+  font-size: 12px;
+  font-weight: 430;
+}
+
+#dataPickerOverlay #dataCoreRangeBtn.active,
+#dataPickerOverlay #dataFullRangeBtn.active {
+  background:
+    linear-gradient(180deg, rgba(120, 242, 229, 0.13), rgba(127, 214, 255, 0.04)),
+    rgba(7, 12, 18, 0.74);
+  color: #eafffb;
+  box-shadow: inset 0 0 0 1px rgba(120, 242, 229, 0.18), 0 0 18px rgba(120, 242, 229, 0.08);
+  transform: none;
+}
+
+#dataPickerOverlay #dataCoreRangeBtn.active::after,
+#dataPickerOverlay #dataFullRangeBtn.active::after {
+  content: none;
+  display: none;
+}
+
+/* UI pass 27b: Select Data right rail spacing and interaction-only Use glow */
+
+#dataPickerOverlay .data-selection-panel {
+  gap: 18px;
+  padding-top: 10px;
+}
+
+#dataPickerOverlay .selection-readout {
+  min-height: 42px;
+  padding: 2px 6px 0;
+}
+
+#dataPickerOverlay .selection-readout span {
+  display: none;
+}
+
+#dataPickerOverlay .selection-readout strong {
+  display: block;
+  color: rgba(242, 251, 255, 0.86);
+  font-size: 12.5px;
+  font-weight: 430;
+  line-height: 1.45;
+}
+
+#dataPickerOverlay .data-picker-toolbar {
+  gap: 18px;
+  margin-top: 2px;
+}
+
+#dataPickerOverlay .data-voltage-row {
+  grid-template-columns: repeat(2, 128px);
+  justify-content: start;
+  gap: 14px;
+}
+
+#dataPickerOverlay .data-voltage-row .compact-field {
+  width: 128px;
+}
+
+#dataPickerOverlay .data-picker-toolbar input {
+  width: 100%;
+}
+
+#dataPickerOverlay .data-picker-tool-row {
+  margin-top: 2px;
+}
+
+#dataPickerOverlay .data-mini-preview-card {
+  margin-top: 2px;
+  padding-bottom: 10px;
+  overflow: visible;
+}
+
+#dataPickerOverlay #applyDataSelectionBtn.primary-pill {
+  position: relative;
+  overflow: visible;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.62),
+    0 6px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+#dataPickerOverlay #applyDataSelectionBtn.primary-pill::after {
+  content: "";
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: -9px;
+  height: 15px;
+  z-index: -1;
+  border-radius: 999px;
+  background: rgba(120, 242, 229, 0.5);
+  filter: blur(12px);
+  opacity: 0;
+  transform: translateY(4px) scaleX(0.92);
+  transition:
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+#dataPickerOverlay #applyDataSelectionBtn.primary-pill:hover:not(:disabled)::after,
+#dataPickerOverlay #applyDataSelectionBtn.primary-pill:focus-visible::after,
+#dataPickerOverlay #applyDataSelectionBtn.primary-pill:active::after {
+  opacity: 0.9;
+  transform: translateY(0) scaleX(1);
+}
+
+#dataPickerOverlay #applyDataSelectionBtn.primary-pill:hover:not(:disabled),
+#dataPickerOverlay #applyDataSelectionBtn.primary-pill:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.72),
+    0 12px 28px rgba(91, 214, 196, 0.16) !important;
+}
+/* UI pass 28: TXT review presets beside Clear and calmer block table */
+
+.txt-block-panel-head {
+  gap: 10px;
+}
+
+.txt-block-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  flex: 0 0 auto;
+}
+
+.txt-fit-range {
+  flex: 0 1 260px;
+}
+
+.txt-block-panel {
+  border: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0.008)),
+    rgba(7, 12, 18, 0.66);
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.075);
+}
+
+.txt-block-panel-head {
+  border-bottom-color: rgba(148, 163, 184, 0.07);
+  background: rgba(5, 9, 14, 0.36);
+}
+
+.txt-block-list {
+  padding: 8px;
+}
+
+.txt-block-row {
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.022), rgba(255, 255, 255, 0.006)),
+    rgba(7, 12, 18, 0.58);
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.065);
+}
+
+.txt-block-row.is-selected {
+  background:
+    linear-gradient(180deg, rgba(120, 242, 229, 0.08), rgba(127, 214, 255, 0.02)),
+    rgba(8, 15, 22, 0.86);
+  box-shadow: inset 0 0 0 1px rgba(120, 242, 229, 0.16);
+}
+
+/* UI pass 31: match TXT Back/Home buttons to Select Data */
+
+.txt-import-page .flow-nav-button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(226, 246, 241, 0.92));
+  color: #081116;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 10px 26px rgba(91, 214, 196, 0.13);
+}
+
+.txt-import-page .flow-nav-button:hover:not(:disabled),
+.txt-import-page .flow-nav-button:focus-visible {
+  background: linear-gradient(180deg, #ffffff, #e9faf6);
+  color: #061014;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.64),
+    0 12px 30px rgba(91, 214, 196, 0.18);
+  transform: translateY(-1px) scale(1.025);
+}
+
+/* Run Fit page foundations moved from retired earlier passes. */
+#modelPage.model-page {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at var(--home-teal-left, 28%) var(--home-teal-top, 22%), rgba(56, 215, 255, 0.1), transparent 32%),
+    radial-gradient(ellipse at var(--home-green-left, 78%) var(--home-green-top, 74%), rgba(95, 223, 155, 0.07), transparent 34%),
+    #04070b;
+}
+
+#modelPage.model-page::before,
+#modelPage.model-page::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  width: 360px;
+  height: 250px;
+  border-radius: 54% 46% 61% 39% / 48% 57% 43% 52%;
+  filter: blur(28px);
+  opacity: 0.42;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+#modelPage.model-page::before {
+  left: 16%;
+  top: 16%;
+  background: radial-gradient(ellipse at center, rgba(120, 242, 229, 0.22), transparent 66%);
+  animation: modelLiquidGlowA 19s ease-in-out infinite;
+}
+
+#modelPage.model-page::after {
+  right: 12%;
+  bottom: 12%;
+  background: radial-gradient(ellipse at center, rgba(127, 214, 255, 0.18), transparent 68%);
+  animation: modelLiquidGlowB 23s ease-in-out infinite;
+}
+
+@keyframes modelLiquidGlowA {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(0.94) rotate(0deg);
+    border-radius: 54% 46% 61% 39% / 48% 57% 43% 52%;
+  }
+  42% {
+    transform: translate3d(26vw, 9vh, 0) scale(1.06) rotate(9deg);
+    border-radius: 43% 57% 47% 53% / 59% 42% 58% 41%;
+  }
+  74% {
+    transform: translate3d(12vw, 25vh, 0) scale(0.98) rotate(-5deg);
+    border-radius: 61% 39% 52% 48% / 44% 61% 39% 56%;
+  }
+}
+
+@keyframes modelLiquidGlowB {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    border-radius: 47% 53% 42% 58% / 56% 44% 58% 42%;
+  }
+  38% {
+    transform: translate3d(-28vw, -8vh, 0) scale(0.93) rotate(-8deg);
+    border-radius: 58% 42% 54% 46% / 45% 57% 43% 55%;
+  }
+  68% {
+    transform: translate3d(-13vw, -24vh, 0) scale(1.08) rotate(7deg);
+    border-radius: 42% 58% 49% 51% / 61% 39% 55% 45%;
+  }
+}
+
+#modelPage .model-layout {
+  position: relative;
+  z-index: 1;
+}
+
+.run-check-copy {
+  justify-self: center;
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  text-align: center;
+}
+
+.run-check-copy > span {
+  color: rgba(217, 231, 241, 0.58);
+  font-size: 12px;
+}
+
+.run-check-inline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.run-check-inline div {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.run-check-inline span {
+  color: rgba(217, 231, 241, 0.44);
+  font-size: 9.5px;
+}
+
+.run-check-inline strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #f2fbff;
+  font-size: 11.5px;
+  font-weight: 480;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* UI pass 32: Run Fit alignment, mode switch, and Get Start style launch */
+
+#modelPage.model-page {
+  transition: background 980ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#modelPage.model-page::before {
+  opacity: 0.44;
+  animation-duration: 12s;
+}
+
+#modelPage.model-page::after {
+  opacity: 0.38;
+  animation-duration: 14s;
+}
+
+#modelPage.model-page.diagnostic-mode {
+  background:
+    radial-gradient(ellipse at var(--home-teal-left, 28%) var(--home-teal-top, 22%), rgba(68, 108, 255, 0.22), transparent 34%),
+    radial-gradient(ellipse at var(--home-green-left, 78%) var(--home-green-top, 74%), rgba(152, 116, 255, 0.16), transparent 35%),
+    #04070b;
+}
+
+#modelPage.model-page.diagnostic-mode::before {
+  background: radial-gradient(ellipse at center, rgba(84, 124, 255, 0.34), transparent 66%);
+}
+
+#modelPage.model-page.diagnostic-mode::after {
+  background: radial-gradient(ellipse at center, rgba(174, 150, 255, 0.26), transparent 68%);
+}
+
+#modelPage .model-layout {
+  width: min(640px, 100%);
+  gap: 13px;
+}
+
+#modelPage .data-picker-header {
+  min-height: 118px;
+  display: block;
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#modelPage .flow-nav-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+}
+
+#modelPage .flow-nav-button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(226, 246, 241, 0.92));
+  color: #081116;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 10px 26px rgba(91, 214, 196, 0.13);
+}
+
+#modelPage .flow-nav-button:hover:not(:disabled),
+#modelPage .flow-nav-button:focus-visible {
+  background: linear-gradient(180deg, #ffffff, #e9faf6);
+  color: #061014;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.64),
+    0 12px 30px rgba(91, 214, 196, 0.18);
+  transform: translateY(-1px) scale(1.025);
+}
+
+.run-check-copy {
+  width: min(480px, 100%);
+  margin: 0 auto;
+  padding-top: 6px;
+}
+
+.run-check-copy h2 {
+  font-size: 16px;
+  font-weight: 510;
+}
+
+.run-check-inline {
+  width: min(430px, 100%);
+  margin-top: 8px;
+}
+
+#modelPage .run-console-panel {
+  margin-top: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#modelPage .run-console-panel::before,
+#modelPage .run-console-panel::after {
+  content: none !important;
+}
+
+.run-console-copy {
+  min-height: 224px;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 12px;
+  padding-top: 0;
+  text-align: center;
+}
+
+.run-console-kicker {
+  margin-bottom: 0;
+  color: rgba(217, 231, 241, 0.48);
+  font-size: 10px;
+  font-weight: 440;
+  text-transform: none;
+}
+
+.run-mode-card {
+  width: min(430px, 100%);
+  min-height: 96px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.run-mode-tabs {
+  width: 246px;
+  height: 42px;
+  padding: 4px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(4, 7, 11, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.07);
+}
+
+.run-mode-tabs::before {
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 6px);
+  background: rgba(120, 242, 229, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(120, 242, 229, 0.12);
+  transition:
+    transform 520ms cubic-bezier(0.18, 1.06, 0.24, 1),
+    background-color 820ms ease,
+    box-shadow 820ms ease;
+}
+
+.run-mode-tabs.is-super::before {
+  transform: translateX(calc(100% + 4px));
+  background: rgba(146, 133, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(174, 150, 255, 0.2);
+}
+
+.run-mode-tabs button,
+.run-mode-tabs button.active,
+#modelPage.diagnostic-mode .run-mode-tabs button.active {
+  min-height: 34px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.run-mode-tabs button {
+  color: rgba(217, 231, 241, 0.58);
+  font-size: 12px;
+  font-weight: 430;
+}
+
+.run-mode-hint,
+#modelPage.diagnostic-mode .run-mode-hint {
+  width: min(420px, 100%);
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: rgba(217, 231, 241, 0.58);
+  transition: color 420ms ease;
+}
+
+#modelPage.diagnostic-mode .run-mode-hint {
+  color: rgba(226, 220, 255, 0.64);
+}
+
+.run-console-actions {
+  margin-top: 8px;
+}
+
+#modelPage .run-fit-hero {
+  min-width: 142px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(226, 246, 241, 0.92));
+  color: #081116;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 10px 28px rgba(91, 214, 196, 0.14);
+}
+
+#modelPage .run-fit-hero:hover:not(:disabled),
+#modelPage .run-fit-hero:focus-visible {
+  background: linear-gradient(180deg, #ffffff, #e9faf6);
+  color: #061014;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.64),
+    0 12px 32px rgba(91, 214, 196, 0.18);
+  transform: translateY(-1px) scale(1.018);
+}
+
+#modelPage .run-fit-hero span {
+  min-width: 58px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 450;
+  letter-spacing: 0;
+}
+
+
+
+/* UI pass 34: clean Run launch glow and keep scramble glyphs visually quiet */
+
+#modelPage .run-console-actions {
+  position: relative;
+  isolation: isolate;
+}
+
+#modelPage .run-console-actions::before,
+#modelPage .run-console-actions::after,
+#modelPage .run-fit-hero::before,
+#modelPage .run-fit-hero::after,
+#modelPage .run-fit-hero span::before,
+#modelPage .run-fit-hero span::after {
+  content: none !important;
+  display: none !important;
+}
+
+#modelPage .run-fit-hero,
+#modelPage .run-fit-hero:hover:not(:disabled),
+#modelPage .run-fit-hero:focus-visible {
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(226, 246, 241, 0.93));
+  color: #071115;
+  filter: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.58),
+    0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+#modelPage .run-fit-hero:hover:not(:disabled),
+#modelPage .run-fit-hero:focus-visible {
+  background: linear-gradient(180deg, #ffffff, #eefbf8);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.68),
+    0 14px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* UI pass 36: Motion scramble text cadence and glyph styling */
+
+#modelPage .run-fit-hero span {
+  min-width: 7.5ch;
+  display: inline-block;
+  font-family: var(--font-mono), "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  white-space: pre;
+}
+

@@ -1,0 +1,282 @@
+/* ==========================================================================
+   Data picker and spreadsheet range selection
+   ========================================================================== */
+
+.data-picker-overlay {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(180deg, #f8fafc 0%, #eaf0f7 100%);
+  z-index: 1100;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0;
+}
+
+.data-picker-dialog {
+  width: 100%;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.data-picker-header,
+.data-picker-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-picker-header {
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.data-picker-header span,
+.selection-readout span,
+.grid-cap-note {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.data-picker-step {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--blue) !important;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.data-picker-header h2 {
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1.15;
+  margin-bottom: 3px;
+  text-transform: none;
+}
+
+.data-picker-actions,
+.data-picker-toolbar {
+  flex-wrap: wrap;
+}
+
+.data-picker-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.flow-enter .data-picker-dialog,
+.flow-enter .model-layout,
+.flow-enter .review-layout,
+.flow-enter .manual-layout {
+  animation: flowPageEnter 0.34s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+@keyframes flowPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.data-picker-toolbar {
+  align-items: stretch;
+  padding: 14px 18px;
+  background: transparent;
+  border-bottom: 0;
+}
+
+.data-picker-toolbar .compact-field {
+  width: 150px;
+  min-height: 78px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.selection-readout {
+  display: grid;
+  gap: 4px;
+  min-width: min(360px, 100%);
+  min-height: 78px;
+  margin-right: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.selection-readout strong {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.data-grid-shell {
+  min-height: 0;
+  overflow: hidden;
+  margin: 0 18px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-soft);
+}
+
+.grid-cap-note {
+  display: block;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  background: #fff8eb;
+  color: #92400e;
+}
+
+.data-grid-scroll {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  cursor: cell;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.03), transparent 80px),
+    white;
+  touch-action: none;
+}
+
+.data-grid-table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+}
+
+.data-grid-table th,
+.data-grid-table td {
+  position: relative;
+  height: 30px;
+  min-width: 92px;
+  max-width: 160px;
+  border-right: 1px solid #e4eaf2;
+  border-bottom: 1px solid #e4eaf2;
+  padding: 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+  user-select: none;
+  transition: background-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
+}
+
+.data-grid-table th {
+  position: sticky;
+  background: #f8fafc;
+  color: var(--muted);
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: inset 0 -1px 0 var(--line);
+}
+
+.data-grid-table thead th {
+  top: 0;
+}
+
+.data-grid-table tbody th {
+  left: 0;
+  min-width: 52px;
+  z-index: 1;
+  box-shadow: inset -1px 0 0 var(--line);
+}
+
+.data-grid-table .grid-corner {
+  left: 0;
+  z-index: 3;
+}
+
+.data-grid-table td:hover {
+  background: var(--grid-hover-fill);
+  box-shadow: inset 0 0 0 1px rgba(20, 184, 166, 0.28);
+}
+
+.data-grid-table td:active {
+  background: var(--grid-active-fill);
+}
+
+.data-grid-table td.current-column {
+  background: var(--grid-column-fill);
+}
+
+.data-grid-table td.current-selection {
+  background:
+    linear-gradient(90deg, rgba(34, 211, 238, 0.18), rgba(59, 130, 246, 0.14)),
+    var(--grid-select-fill) !important;
+  color: #0f172a !important;
+  font-weight: 650;
+  box-shadow:
+    inset 2px 0 0 rgba(56, 189, 248, 0.56),
+    inset -2px 0 0 rgba(56, 189, 248, 0.34);
+}
+
+.data-grid-table td.current-selection:hover {
+  background:
+    linear-gradient(90deg, rgba(34, 211, 238, 0.24), rgba(59, 130, 246, 0.19)),
+    var(--grid-select-fill-strong) !important;
+  color: #0b1220 !important;
+}
+
+.data-grid-table td.current-selection:active,
+.data-grid-shell.is-selecting .data-grid-table td.current-selection {
+  background:
+    linear-gradient(90deg, rgba(34, 211, 238, 0.28), rgba(59, 130, 246, 0.22)),
+    var(--grid-active-fill) !important;
+}
+
+.data-grid-table td.current-selection.selection-start {
+  box-shadow:
+    inset 0 2px 0 var(--grid-select-border),
+    inset 2px 0 0 rgba(56, 189, 248, 0.68),
+    inset -2px 0 0 rgba(56, 189, 248, 0.36);
+}
+
+.data-grid-table td.current-selection.selection-end {
+  box-shadow:
+    inset 0 -2px 0 var(--grid-select-border),
+    inset 2px 0 0 rgba(56, 189, 248, 0.68),
+    inset -2px 0 0 rgba(56, 189, 248, 0.36);
+}
+
+.data-grid-table td.current-selection.selection-single {
+  box-shadow:
+    inset 0 2px 0 var(--grid-select-border),
+    inset 0 -2px 0 var(--grid-select-border),
+    inset 2px 0 0 rgba(56, 189, 248, 0.72),
+    inset -2px 0 0 rgba(56, 189, 248, 0.46);
+}
+
+.data-grid-table .selected-column,
+.data-grid-table .selected-row {
+  background: rgba(14, 116, 144, 0.1);
+  color: #075985;
+  box-shadow: inset 0 -2px 0 rgba(14, 165, 233, 0.46);
+}

@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Stylesheet manifest
+   ========================================================================== */
+
+@import url("/static/styles/01-theme-base.css");
+@import url("/static/styles/02-home-entry.css");
+@import url("/static/styles/03-home-motion.css");
+@import url("/static/styles/04-workbench-shell.css");
+@import url("/static/styles/05-data-picker.css");
+@import url("/static/styles/06-txt-import.css");
+@import url("/static/styles/07-review-manual-save.css");
+@import url("/static/styles/08-results-charts.css");
+@import url("/static/styles/09-records-assistant.css");
+@import url("/static/styles/10-responsive-layout.css");
+@import url("/static/styles/11-import-run-review-refresh.css");
+@import url("/static/styles/12-unified-flow-design-pass.css");
+@import url("/static/styles/13-home-data-run-review-passes.css");
+@import url("/static/styles/14-data-txt-run-polish-passes.css");
+@import url("/static/styles/15-review-candidate-stack.css");
+@import url("/static/styles/16-txt-manual-review-loading.css");
+@import url("/static/styles/17-run-loading-ui-infra.css");
+
+/* Final ownership layers: keep these ordered so shared tabs load before page-specific finals. */
+@import url("/static/styles/18-txt-home-shared-final.css");
+@import url("/static/styles/19-save-page-final.css");
+@import url("/static/styles/20-manual-page-final.css");
+@import url("/static/styles/21-review-page-final.css");

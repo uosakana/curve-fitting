@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Home and model entry pages
+   ========================================================================== */
+
+.home-page,
+.model-page {
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 42px);
+  background:
+    linear-gradient(180deg, #fbfdff 0%, #eef4f8 100%);
+}
+
+.home-layout,
+.model-layout {
+  width: min(700px, 100%);
+}
+
+.model-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.home-action-card {
+  min-height: 44px;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--text);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.home-action-card::before {
+  content: none;
+}
+
+.home-action-card:hover,
+.toggle-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.12);
+}
+
+.home-action-card strong {
+  font-size: 13px;
+}
+
+.home-action-card span,
+.toggle-card small,
+.home-action-card small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.home-action-card small {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0f172a;
+  padding: 4px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+}
+
+.secondary-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(240, 253, 250, 0.75));
+}
