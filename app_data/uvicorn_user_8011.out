@@ -1,0 +1,19 @@
+INFO:     127.0.0.1:52187 - "GET /api/app-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54805 - "GET /api/app-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65050 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65050 - "GET /static/styles.css?v=20260603-ui-polish HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65050 - "GET /static/app.js?v=20260525-ui-1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65050 - "GET /api/fit-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65050 - "GET /api/records HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65050 - "GET /static/styles.css?v=20260603-ui-polish HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65050 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65050 - "POST /api/inspect HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65050 - "GET /api/grid?upload_id=0eb79dc9f86a4c75a7007c8d88e3710c&sheet_name=Sheet1&row_offset=0&col_offset=0&row_count=500&col_count=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61804 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62425 - "GET /api/app-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52966 - "GET /api/app-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52967 - "GET /api/fit-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52968 - "GET /api/app-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52969 - "GET /api/fit-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57722 - "GET /api/fit-contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57723 - "GET /api/app-contract HTTP/1.1" 200 OK

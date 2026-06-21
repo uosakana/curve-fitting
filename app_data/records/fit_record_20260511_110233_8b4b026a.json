@@ -1,0 +1,1731 @@
+{
+  "schema_version": 2,
+  "record_type": "fit_label",
+  "record_id": "8b4b026a",
+  "created_at": "2026-05-11T03:02:33.162Z",
+  "saved_at": "2026-05-11T11:02:33",
+  "source": "web_app",
+  "data_selection": {
+    "upload_id": "b6e39ef5a9ec4d1098cf69de4f8473b1",
+    "sheet_name": "Sheet1",
+    "cell_range": "",
+    "voltage_range": "",
+    "current_range": "E68:E148",
+    "voltage_start": -0.5,
+    "voltage_end": 0.3,
+    "voltage_step": 0.01
+  },
+  "sample_context": {
+    "sample_id": "",
+    "batch": "",
+    "role": "unknown",
+    "structure": "MoOx-Ag / PbS-EDT / PbS-ink / ZnO / ITO",
+    "process": "",
+    "expected_outcome": "",
+    "comparison_group": "",
+    "aging_days": 0.0,
+    "device_stack": [
+      {
+        "index": 0,
+        "role": "electrode",
+        "name": "MoOx-Ag",
+        "thickness_nm": "",
+        "absorption_peak_nm": ""
+      },
+      {
+        "index": 1,
+        "role": "htl",
+        "name": "PbS-EDT",
+        "thickness_nm": "100",
+        "absorption_peak_nm": ""
+      },
+      {
+        "index": 2,
+        "role": "absorber",
+        "name": "PbS-ink",
+        "thickness_nm": "450",
+        "absorption_peak_nm": "1250"
+      },
+      {
+        "index": 3,
+        "role": "etl",
+        "name": "ZnO",
+        "thickness_nm": "",
+        "absorption_peak_nm": ""
+      },
+      {
+        "index": 4,
+        "role": "substrate",
+        "name": "ITO",
+        "thickness_nm": "",
+        "absorption_peak_nm": ""
+      }
+    ]
+  },
+  "analysis_settings": {
+    "fit_strategy": "quick_global",
+    "scan_m": true,
+    "use_best_m_after_scan": true,
+    "compare_models": false,
+    "m_values": "1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4",
+    "region_weights": {
+      "reverse": 1.5,
+      "near_zero": 0.5,
+      "forward": 1.0,
+      "high_forward": 1.5
+    }
+  },
+  "manual_parameters": {
+    "j0": 1.234571e-07,
+    "rs": 10,
+    "rsh": 1756930,
+    "k": 2.365189e-06,
+    "m": 3.4
+  },
+  "manual_history": [
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:22",
+      "params": {
+        "j0": 1.234571e-07,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 5.51% | max 20.11% | worst --",
+      "stats": {
+        "mean": 5.508659230076911,
+        "max": 20.110540110513337,
+        "median": 4.829553036253772,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 3.3099842295160213,
+        "positive_mean": 9.173117564345059
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:21",
+      "params": {
+        "j0": 1.160664e-07,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 8.09% | max 20.40% | worst --",
+      "stats": {
+        "mean": 8.092879669985791,
+        "max": 20.404491178896855,
+        "median": 7.290755623348599,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 5.9001243410204305,
+        "positive_mean": 11.747471884928057
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:20",
+      "params": {
+        "j0": 1.091181e-07,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 11.19% | max 25.10% | worst --",
+      "stats": {
+        "mean": 11.19146992333853,
+        "max": 25.095198987775436,
+        "median": 10.29380640320737,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 8.377703013744663,
+        "positive_mean": 15.88108143932831
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:19",
+      "params": {
+        "j0": 7.305227e-08,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "poor | mean 28.93% | max 49.57% | worst --",
+      "stats": {
+        "mean": 28.929246597496796,
+        "max": 49.56607013731211,
+        "median": 30.082318105333044,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 21.23783352271701,
+        "positive_mean": 41.74826838879644
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:18",
+      "params": {
+        "j0": 8.265194e-08,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 24.10% | max 43.03% | worst --",
+      "stats": {
+        "mean": 24.10055055646648,
+        "max": 43.03232827382274,
+        "median": 24.45984086555969,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 17.81483991347121,
+        "positive_mean": 34.57673496145859
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:18",
+      "params": {
+        "j0": 9.067081e-08,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 20.07% | max 37.59% | worst --",
+      "stats": {
+        "mean": 20.072180203602187,
+        "max": 37.585844142019894,
+        "median": 19.941956899735292,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 14.955520116852979,
+        "positive_mean": 28.59994701485088
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:17",
+      "params": {
+        "j0": 1.025857e-07,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 14.19% | max 29.51% | worst --",
+      "stats": {
+        "mean": 14.185324816329802,
+        "max": 29.512100519898805,
+        "median": 14.18727162966,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 10.70698375444418,
+        "positive_mean": 19.98255991947251
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:17",
+      "params": {
+        "j0": 1.058015e-07,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 9.62% | max 22.79% | worst --",
+      "stats": {
+        "mean": 9.62499927106414,
+        "max": 22.78511112001992,
+        "median": 9.20994652131731,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 7.158043711038788,
+        "positive_mean": 13.736591871106397
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:16",
+      "params": {
+        "j0": 1.234571e-07,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 5.51% | max 20.11% | worst --",
+      "stats": {
+        "mean": 5.508659230076911,
+        "max": 20.110540110513337,
+        "median": 4.829553036253772,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 3.3099842295160213,
+        "positive_mean": 9.173117564345059
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:02:16",
+      "params": {
+        "j0": 1.273271e-07,
+        "rs": 10,
+        "rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "summary": "acceptable | mean 4.70% | max 23.46% | worst --",
+      "stats": {
+        "mean": 4.70214870504468,
+        "max": 23.457162744161376,
+        "median": 3.4592568373052197,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 2.4019366692231845,
+        "positive_mean": 8.535835431413838
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:00:58",
+      "params": {
+        "j0": 4.936541e-07,
+        "rs": 259.5578,
+        "rsh": 100000,
+        "k": 1e-05,
+        "m": 1.6
+      },
+      "summary": "poor | mean 36.68% | max 59.63% | worst --",
+      "stats": {
+        "mean": 36.6778158442891,
+        "max": 59.63201373167514,
+        "median": 38.36500991918905,
+        "raw_max": 99.99739437175593,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 42.26920485629654,
+        "positive_mean": 27.35883415761004
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rsh",
+            "side": "lower",
+            "value": 100000,
+            "bound": 100000
+          },
+          {
+            "parameter": "k",
+            "side": "upper",
+            "value": 1e-05,
+            "bound": 1e-05
+          }
+        ],
+        "warnings": [
+          "Rsh reached the lower bound; this parameter may be weakly identifiable.",
+          "k reached the upper bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:00:58",
+      "params": {
+        "j0": 5.091287e-07,
+        "rs": 259.5578,
+        "rsh": 100000,
+        "k": 1e-05,
+        "m": 1.6
+      },
+      "summary": "poor | mean 38.41% | max 68.48% | worst --",
+      "stats": {
+        "mean": 38.41400629703533,
+        "max": 68.47901026804453,
+        "median": 38.965307520345874,
+        "raw_max": 99.99739437175593,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 40.81778692547355,
+        "positive_mean": 34.40770524963829
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rsh",
+            "side": "lower",
+            "value": 100000,
+            "bound": 100000
+          },
+          {
+            "parameter": "k",
+            "side": "upper",
+            "value": 1e-05,
+            "bound": 1e-05
+          }
+        ],
+        "warnings": [
+          "Rsh reached the lower bound; this parameter may be weakly identifiable.",
+          "k reached the upper bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:00:58",
+      "params": {
+        "j0": 5.940893e-07,
+        "rs": 259.5578,
+        "rsh": 100000,
+        "k": 1e-05,
+        "m": 1.6
+      },
+      "summary": "poor | mean 40.84% | max 84.04% | worst --",
+      "stats": {
+        "mean": 40.844122341753305,
+        "max": 84.04110417395175,
+        "median": 39.362042545013,
+        "raw_max": 99.99739437175593,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 39.175945698744286,
+        "positive_mean": 43.624416746768325
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rsh",
+            "side": "lower",
+            "value": 100000,
+            "bound": 100000
+          },
+          {
+            "parameter": "k",
+            "side": "upper",
+            "value": 1e-05,
+            "bound": 1e-05
+          }
+        ],
+        "warnings": [
+          "Rsh reached the lower bound; this parameter may be weakly identifiable.",
+          "k reached the upper bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:00:57",
+      "params": {
+        "j0": 7.3737e-07,
+        "rs": 259.5578,
+        "rsh": 100000,
+        "k": 1e-05,
+        "m": 1.6
+      },
+      "summary": "poor | mean 44.42% | max 105.78% | worst --",
+      "stats": {
+        "mean": 44.420192520866706,
+        "max": 105.77714408006773,
+        "median": 45.09949444828925,
+        "raw_max": 105.77714408006773,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 36.87028560331322,
+        "positive_mean": 57.00337071678918
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rsh",
+            "side": "lower",
+            "value": 100000,
+            "bound": 100000
+          },
+          {
+            "parameter": "k",
+            "side": "upper",
+            "value": 1e-05,
+            "bound": 1e-05
+          }
+        ],
+        "warnings": [
+          "Rsh reached the lower bound; this parameter may be weakly identifiable.",
+          "k reached the upper bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:00:55",
+      "params": {
+        "j0": 6.721574e-07,
+        "rs": 259.5578,
+        "rsh": 100000,
+        "k": 1e-05,
+        "m": 1.6
+      },
+      "summary": "poor | mean 42.22% | max 92.23% | worst --",
+      "stats": {
+        "mean": 42.21961739465206,
+        "max": 92.23128387450903,
+        "median": 42.127127553117575,
+        "raw_max": 99.99739437175593,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 38.27594482958981,
+        "positive_mean": 48.792405003089144
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rsh",
+            "side": "lower",
+            "value": 100000,
+            "bound": 100000
+          },
+          {
+            "parameter": "k",
+            "side": "upper",
+            "value": 1e-05,
+            "bound": 1e-05
+          }
+        ],
+        "warnings": [
+          "Rsh reached the lower bound; this parameter may be weakly identifiable.",
+          "k reached the upper bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:00:54",
+      "params": {
+        "j0": 6.127122e-07,
+        "rs": 259.5578,
+        "rsh": 100000,
+        "k": 1e-05,
+        "m": 1.6
+      },
+      "summary": "poor | mean 40.18% | max 80.05% | worst --",
+      "stats": {
+        "mean": 40.181675650333744,
+        "max": 80.04884185450045,
+        "median": 38.82801083719752,
+        "raw_max": 99.99739437175593,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 39.605569539158466,
+        "positive_mean": 41.14185250229255
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rsh",
+            "side": "lower",
+            "value": 100000,
+            "bound": 100000
+          },
+          {
+            "parameter": "k",
+            "side": "upper",
+            "value": 1e-05,
+            "bound": 1e-05
+          }
+        ],
+        "warnings": [
+          "Rsh reached the lower bound; this parameter may be weakly identifiable.",
+          "k reached the upper bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics."
+        ]
+      }
+    },
+    {
+      "trigger": "Wheel J0",
+      "created_at": "11:00:54",
+      "params": {
+        "j0": 5.760324e-07,
+        "rs": 259.5578,
+        "rsh": 100000,
+        "k": 1e-05,
+        "m": 1.6
+      },
+      "summary": "poor | mean 38.98% | max 72.27% | worst --",
+      "stats": {
+        "mean": 38.981173311733855,
+        "max": 72.26818967309026,
+        "median": 38.70750262937219,
+        "raw_max": 99.99739437175593,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 40.42610053604699,
+        "positive_mean": 36.57296127121198
+      },
+      "diagnostics": {
+        "region_stats": {},
+        "boundary_hits": [
+          {
+            "parameter": "Rsh",
+            "side": "lower",
+            "value": 100000,
+            "bound": 100000
+          },
+          {
+            "parameter": "k",
+            "side": "upper",
+            "value": 1e-05,
+            "bound": 1e-05
+          }
+        ],
+        "warnings": [
+          "Rsh reached the lower bound; this parameter may be weakly identifiable.",
+          "k reached the upper bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics."
+        ]
+      }
+    }
+  ],
+  "fit_delta": {
+    "initial": {
+      "params": {
+        "J0": 1.3131839687681052e-07,
+        "Rs": 10.000000000000005,
+        "Rsh": 1756929.5810849783,
+        "k": 2.365189204470331e-06,
+        "m": 3.4
+      },
+      "stats": {
+        "mean": 4.350057329033265,
+        "max": 26.90866825653895,
+        "median": 2.392713375679988
+      },
+      "diagnostics": {
+        "worst_region": "near_zero",
+        "boundary_hit_count": 1,
+        "warning_count": 4
+      }
+    },
+    "final": {
+      "params": {
+        "J0": 1.234571e-07,
+        "Rs": 10,
+        "Rsh": 1756930,
+        "k": 2.365189e-06,
+        "m": 3.4
+      },
+      "stats": {
+        "mean": 5.508659230076911,
+        "max": 20.110540110513337,
+        "median": 4.829553036253772
+      },
+      "diagnostics": {
+        "worst_region": null,
+        "boundary_hit_count": 1,
+        "warning_count": 3
+      }
+    },
+    "parameter_changes": [
+      {
+        "parameter": "J0",
+        "initial": 1.3131839687681052e-07,
+        "final": 1.234571e-07,
+        "log10_ratio": -0.026809501062520884,
+        "direction": "decreased"
+      },
+      {
+        "parameter": "Rs",
+        "initial": 10.000000000000005,
+        "final": 10,
+        "log10_ratio": -2.4108186663832183e-16,
+        "direction": "decreased"
+      },
+      {
+        "parameter": "Rsh",
+        "initial": 1756929.5810849783,
+        "final": 1756930,
+        "log10_ratio": 1.0355136745970833e-07,
+        "direction": "increased"
+      },
+      {
+        "parameter": "k",
+        "initial": 2.365189204470331e-06,
+        "final": 2.365189e-06,
+        "log10_ratio": -3.754470897683132e-08,
+        "direction": "decreased"
+      },
+      {
+        "parameter": "m",
+        "initial": 3.4,
+        "final": 3.4,
+        "delta": 0,
+        "direction": "unchanged"
+      }
+    ],
+    "dominant_changes": [
+      {
+        "parameter": "J0",
+        "initial": 1.3131839687681052e-07,
+        "final": 1.234571e-07,
+        "log10_ratio": -0.026809501062520884,
+        "direction": "decreased"
+      },
+      {
+        "parameter": "Rsh",
+        "initial": 1756929.5810849783,
+        "final": 1756930,
+        "log10_ratio": 1.0355136745970833e-07,
+        "direction": "increased"
+      },
+      {
+        "parameter": "k",
+        "initial": 2.365189204470331e-06,
+        "final": 2.365189e-06,
+        "log10_ratio": -3.754470897683132e-08,
+        "direction": "decreased"
+      }
+    ],
+    "stats_delta": {
+      "mean": 1.158601901043646,
+      "max": -6.798128146025611
+    },
+    "manual_checkpoint_count": 17
+  },
+  "training_summary": {
+    "device_stack": [
+      {
+        "index": 0,
+        "role": "electrode",
+        "name": "MoOx-Ag",
+        "thickness_nm": "",
+        "absorption_peak_nm": ""
+      },
+      {
+        "index": 1,
+        "role": "htl",
+        "name": "PbS-EDT",
+        "thickness_nm": "100",
+        "absorption_peak_nm": ""
+      },
+      {
+        "index": 2,
+        "role": "absorber",
+        "name": "PbS-ink",
+        "thickness_nm": "450",
+        "absorption_peak_nm": "1250"
+      },
+      {
+        "index": 3,
+        "role": "etl",
+        "name": "ZnO",
+        "thickness_nm": "",
+        "absorption_peak_nm": ""
+      },
+      {
+        "index": 4,
+        "role": "substrate",
+        "name": "ITO",
+        "thickness_nm": "",
+        "absorption_peak_nm": ""
+      }
+    ],
+    "aging_days": 0,
+    "manual_adjusted": true,
+    "manual_checkpoint_count": 17,
+    "dominant_parameter_changes": [
+      {
+        "parameter": "J0",
+        "initial": 1.3131839687681052e-07,
+        "final": 1.234571e-07,
+        "log10_ratio": -0.026809501062520884,
+        "direction": "decreased"
+      },
+      {
+        "parameter": "Rsh",
+        "initial": 1756929.5810849783,
+        "final": 1756930,
+        "log10_ratio": 1.0355136745970833e-07,
+        "direction": "increased"
+      },
+      {
+        "parameter": "k",
+        "initial": 2.365189204470331e-06,
+        "final": 2.365189e-06,
+        "log10_ratio": -3.754470897683132e-08,
+        "direction": "decreased"
+      }
+    ],
+    "final_worst_region": null,
+    "final_quality": "acceptable",
+    "recommended_training_use": "candidate_training_example"
+  },
+  "labels": {
+    "accepted": true,
+    "manual_adjusted": true,
+    "quality": "acceptable",
+    "confidence": "medium",
+    "hypothesis": "none",
+    "external_evidence": [],
+    "accept_reasons": [
+      "visual_fit_ok"
+    ],
+    "main_issue": "none",
+    "next_actions": [],
+    "notes": ""
+  },
+  "result": {
+    "dataset": {
+      "path": "C:\\Users\\Administrator\\Desktop\\fit\\app_data\\uploads\\b6e39ef5a9ec4d1098cf69de4f8473b1_test1.xlsx",
+      "suffix": ".xlsx",
+      "sheet_name": "Sheet1",
+      "cell_range": null,
+      "voltage_range": null,
+      "current_range": "E68:E148",
+      "voltage_start": -0.5,
+      "voltage_end": 0.3,
+      "voltage_step": 0.01,
+      "mode": "generated_voltage_current_range",
+      "points": 81
+    },
+    "notes": [
+      "Manual parameter evaluation only; no optimization was run."
+    ],
+    "advice": [
+      {
+        "level": "warning",
+        "title": "Rs reached the lower bound",
+        "detail": "A boundary hit usually means the selected model, voltage window, or parameter bound is controlling the answer.",
+        "action": "Treat this parameter as weakly identifiable; rerun with a narrower window or review the bound before assigning physical meaning.",
+        "settings": {}
+      },
+      {
+        "level": "info",
+        "title": "Some points were excluded from aggregate errors",
+        "detail": "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+        "action": "Inspect the error plot near 0 V; this is usually acceptable when currents are near the noise floor.",
+        "settings": {}
+      }
+    ],
+    "m_scan": [],
+    "model_comparison": [],
+    "fit": {
+      "m": 3.4,
+      "params": [
+        1.234571e-07,
+        10,
+        1756930,
+        2.365189e-06
+      ],
+      "stats": {
+        "mean": 5.508659230076911,
+        "max": 20.110540110513337,
+        "median": 4.829553036253772,
+        "raw_max": 99.99396563324254,
+        "included_points": 80,
+        "excluded_points": 1,
+        "negative_mean": 3.3099842295160213,
+        "positive_mean": 9.173117564345059
+      },
+      "diagnostics": {
+        "stats": {
+          "mean": 5.508659230076911,
+          "max": 20.110540110513337,
+          "median": 4.829553036253772,
+          "raw_max": 99.99396563324254,
+          "included_points": 80,
+          "excluded_points": 1,
+          "negative_mean": 3.3099842295160213,
+          "positive_mean": 9.173117564345059
+        },
+        "component_percent": {
+          "diode": 65.06015835282138,
+          "ohmic": 27.694920823377878,
+          "nonohmic": 7.2449207455844045
+        },
+        "negative_leakage_nonohmic_to_ohmic": 0.5040133768410385,
+        "boundary_hits": [
+          {
+            "parameter": "Rs",
+            "side": "lower",
+            "value": 10,
+            "bound": 10
+          }
+        ],
+        "warnings": [
+          "Rs reached the lower bound; this parameter may be weakly identifiable.",
+          "1 near-zero/noise-floor point(s) were excluded from aggregate error metrics.",
+          "Rs is weakly identifiable around the current solution; avoid over-interpreting it."
+        ],
+        "initialization": null,
+        "identifiability": {
+          "baseline_mean_error": 5.508659230076911,
+          "baseline_max_error": 20.110540110513337,
+          "weak_parameters": [
+            "Rs"
+          ],
+          "strong_parameters": [
+            "J0",
+            "Rsh",
+            "k"
+          ],
+          "by_parameter": {
+            "J0": {
+              "classification": "strong",
+              "max_mean_delta": 52.07822895791298,
+              "relative_sensitivity": 9.453884653741028,
+              "at_lower_bound": false,
+              "at_upper_bound": false,
+              "perturbations": [
+                {
+                  "factor": 0.5,
+                  "value": 6.172855e-08,
+                  "mean_error": 34.63402932869967,
+                  "max_error": 57.29233778919747,
+                  "mean_delta": 29.125370098622756
+                },
+                {
+                  "factor": 2,
+                  "value": 2.469142e-07,
+                  "mean_error": 57.586888187989885,
+                  "max_error": 126.8652152643327,
+                  "mean_delta": 52.07822895791298
+                }
+              ]
+            },
+            "Rs": {
+              "classification": "boundary_limited",
+              "max_mean_delta": 0.5105969415234295,
+              "relative_sensitivity": 0.09268987610190231,
+              "at_lower_bound": true,
+              "at_upper_bound": false,
+              "perturbations": [
+                {
+                  "factor": 2,
+                  "value": 20,
+                  "mean_error": 6.0192561716003405,
+                  "max_error": 20.102733256474483,
+                  "mean_delta": 0.5105969415234295
+                }
+              ]
+            },
+            "Rsh": {
+              "classification": "strong",
+              "max_mean_delta": 102.92447712334928,
+              "relative_sensitivity": 18.68412490672658,
+              "at_lower_bound": false,
+              "at_upper_bound": false,
+              "perturbations": [
+                {
+                  "factor": 0.2,
+                  "value": 351386,
+                  "mean_error": 108.43313635342619,
+                  "max_error": 204.85165995392754,
+                  "mean_delta": 102.92447712334928
+                },
+                {
+                  "factor": 5,
+                  "value": 8784650,
+                  "mean_error": 25.637720212892084,
+                  "max_error": 42.04064996538812,
+                  "mean_delta": 20.129060982815172
+                }
+              ]
+            },
+            "k": {
+              "classification": "strong",
+              "max_mean_delta": 20.11406429817004,
+              "relative_sensitivity": 3.6513538881382592,
+              "at_lower_bound": false,
+              "at_upper_bound": false,
+              "perturbations": [
+                {
+                  "factor": 0.2,
+                  "value": 4.7303780000000007e-07,
+                  "mean_error": 11.175756158825267,
+                  "max_error": 31.463556080269278,
+                  "mean_delta": 5.667096928748356
+                },
+                {
+                  "factor": 5,
+                  "value": 1e-05,
+                  "mean_error": 25.62272352824695,
+                  "max_error": 105.11220652580427,
+                  "mean_delta": 20.11406429817004
+                }
+              ]
+            }
+          }
+        }
+      },
+      "series": {
+        "voltage": [
+          -0.5,
+          -0.49,
+          -0.48,
+          -0.47,
+          -0.46,
+          -0.45,
+          -0.44,
+          -0.43,
+          -0.42,
+          -0.41,
+          -0.4,
+          -0.39,
+          -0.38,
+          -0.37,
+          -0.36,
+          -0.35,
+          -0.34,
+          -0.33,
+          -0.32,
+          -0.31,
+          -0.3,
+          -0.29,
+          -0.28,
+          -0.27,
+          -0.26,
+          -0.25,
+          -0.24,
+          -0.23,
+          -0.22,
+          -0.21,
+          -0.2,
+          -0.19,
+          -0.18,
+          -0.17,
+          -0.16,
+          -0.15,
+          -0.14,
+          -0.13,
+          -0.12,
+          -0.11,
+          -0.1,
+          -0.09,
+          -0.08,
+          -0.07,
+          -0.06,
+          -0.05,
+          -0.04,
+          -0.03,
+          -0.02,
+          -0.01,
+          0,
+          0.01,
+          0.02,
+          0.03,
+          0.04,
+          0.05,
+          0.06,
+          0.07,
+          0.08,
+          0.09,
+          0.1,
+          0.11,
+          0.12,
+          0.13,
+          0.14,
+          0.15,
+          0.16,
+          0.17,
+          0.18,
+          0.19,
+          0.2,
+          0.21,
+          0.22,
+          0.23,
+          0.24,
+          0.25,
+          0.26,
+          0.27,
+          0.28,
+          0.29,
+          0.3
+        ],
+        "measured": [
+          -6.607467e-07,
+          -6.332933e-07,
+          -6.091422e-07,
+          -5.868756e-07,
+          -5.647711e-07,
+          -5.448844e-07,
+          -5.259111e-07,
+          -5.059222e-07,
+          -4.883711e-07,
+          -4.703867e-07,
+          -4.550356e-07,
+          -4.415e-07,
+          -4.265444e-07,
+          -4.142889e-07,
+          -4.016778e-07,
+          -3.898378e-07,
+          -3.776867e-07,
+          -3.682511e-07,
+          -3.578222e-07,
+          -3.490556e-07,
+          -3.392444e-07,
+          -3.296333e-07,
+          -3.217422e-07,
+          -3.132467e-07,
+          -3.055556e-07,
+          -2.980133e-07,
+          -2.901889e-07,
+          -2.829511e-07,
+          -2.758022e-07,
+          -2.680444e-07,
+          -2.665356e-07,
+          -2.565933e-07,
+          -2.478889e-07,
+          -2.393333e-07,
+          -2.309911e-07,
+          -2.227867e-07,
+          -2.141044e-07,
+          -2.122289e-07,
+          -1.994667e-07,
+          -1.955044e-07,
+          -1.863933e-07,
+          -1.765089e-07,
+          -1.663356e-07,
+          -1.548733e-07,
+          -1.362889e-07,
+          -1.275578e-07,
+          -1.049978e-07,
+          -8.872e-08,
+          -6.955111e-08,
+          -3.636889e-08,
+          3.679445e-12,
+          3.776644e-08,
+          8.534222e-08,
+          1.628689e-07,
+          2.553467e-07,
+          3.757778e-07,
+          5.333911e-07,
+          7.414622e-07,
+          1.019749e-06,
+          1.391069e-06,
+          1.888631e-06,
+          2.560387e-06,
+          3.459498e-06,
+          4.661231e-06,
+          6.272387e-06,
+          8.428676e-06,
+          1.131396e-05,
+          1.515774e-05,
+          2.036692e-05,
+          2.711848e-05,
+          3.602581e-05,
+          4.770603e-05,
+          6.29267e-05,
+          8.259848e-05,
+          0.000108,
+          0.00014,
+          0.000179,
+          0.000229,
+          0.000289,
+          0.000361,
+          0.000446
+        ],
+        "fitted": [
+          -6.320908282453353e-07,
+          -6.11526109906002e-07,
+          -5.916722734145008e-07,
+          -5.725090889585615e-07,
+          -5.540164931872038e-07,
+          -5.361745909593374e-07,
+          -5.189636570368527e-07,
+          -5.023641376722398e-07,
+          -4.863566520629803e-07,
+          -4.709219935949971e-07,
+          -4.560411308029977e-07,
+          -4.41695207908932e-07,
+          -4.2786554480533925e-07,
+          -4.1453363625598707e-07,
+          -4.0168115003624827e-07,
+          -3.892899237079028e-07,
+          -3.7734195944549854e-07,
+          -3.658194163536077e-07,
+          -3.547045994423126e-07,
+          -3.439799440729807e-07,
+          -3.336279944865517e-07,
+          -3.2363137444368915e-07,
+          -3.139727474121834e-07,
+          -3.0463476292652557e-07,
+          -2.955999847176205e-07,
+          -2.86850794614657e-07,
+          -2.7836926465296674e-07,
+          -2.701369869739789e-07,
+          -2.621348481612884e-07,
+          -2.543427301937573e-07,
+          -2.467391145621889e-07,
+          -2.3930055861598464e-07,
+          -2.3200100341125297e-07,
+          -2.2481085924230815e-07,
+          -2.1769579801045323e-07,
+          -2.106151589270633e-07,
+          -2.0351984434119342e-07,
+          -1.9634954318836773e-07,
+          -1.890290678749351e-07,
+          -1.8146352211007021e-07,
+          -1.7353192744012925e-07,
+          -1.6507881755445375e-07,
+          -1.5590315332325577e-07,
+          -1.457437055873978e-07,
+          -1.342597813529245e-07,
+          -1.2100581156318513e-07,
+          -1.0539784765922767e-07,
+          -8.666939431169196e-08,
+          -6.381319096436521e-08,
+          -3.5504488480817e-08,
+          0,
+          4.499510415315738e-08,
+          1.0250500142895691e-07,
+          1.7651699776057016e-07,
+          2.7228673321333384e-07,
+          3.9674079423401843e-07,
+          5.590073432315546e-07,
+          7.71115113093468e-07,
+          1.0489138319885738e-06,
+          1.4132856962958962e-06,
+          1.8917390514780475e-06,
+          2.520503374146832e-06,
+          3.347280674732833e-06,
+          4.434854557558432e-06,
+          5.865816604425089e-06,
+          7.748742714677736e-06,
+          1.0226241291938499e-05,
+          1.3485401059656899e-05,
+          1.7771286044657165e-05,
+          2.340425006079061e-05,
+          3.0801953147777114e-05,
+          4.050701987095007e-05,
+          5.322121736146545e-05,
+          6.98467408999176e-05,
+          9.153451457252215e-05,
+          0.00011973812770435243,
+          0.00015626989535456605,
+          0.00020335238983658078,
+          0.0002636547579919657,
+          0.0003402989361197817,
+          0.00043681815397958457
+        ],
+        "diode": [
+          -1.2345697705916577e-07,
+          -1.2345693791918827e-07,
+          -1.2345688631839572e-07,
+          -1.2345681828968378e-07,
+          -1.2345672860295231e-07,
+          -1.2345661036300805e-07,
+          -1.2345645447945212e-07,
+          -1.2345624896779654e-07,
+          -1.2345597802807797e-07,
+          -1.2345562083013068e-07,
+          -1.2345514991212865e-07,
+          -1.2345452906927245e-07,
+          -1.2345371057029987e-07,
+          -1.2345263148781898e-07,
+          -1.234512088603321e-07,
+          -1.2344933331399689e-07,
+          -1.234468606537509e-07,
+          -1.2344360077730772e-07,
+          -1.2343930305970723e-07,
+          -1.2343363708475218e-07,
+          -1.234261672419202e-07,
+          -1.2341631923570493e-07,
+          -1.2340333593254882e-07,
+          -1.2338621915078003e-07,
+          -1.2336365291823388e-07,
+          -1.2333390229743295e-07,
+          -1.2329467999978387e-07,
+          -1.2324297053380107e-07,
+          -1.231747983675026e-07,
+          -1.2308492228083063e-07,
+          -1.229664324093182e-07,
+          -1.2281021899899185e-07,
+          -1.2260427202951866e-07,
+          -1.223327578596426e-07,
+          -1.2197480190639455e-07,
+          -1.215028837695983e-07,
+          -1.2088072141855982e-07,
+          -1.200604817782973e-07,
+          -1.1897910326914771e-07,
+          -1.1755344758622317e-07,
+          -1.1567390800785314e-07,
+          -1.1319598287982604e-07,
+          -1.0992916652073329e-07,
+          -1.0562230362117148e-07,
+          -9.994428143695478e-08,
+          -9.245857584754515e-08,
+          -8.258969519056249e-08,
+          -6.957894350607571e-08,
+          -5.24261047886853e-08,
+          -2.9812569352879764e-08,
+          0,
+          3.9303239055483885e-08,
+          9.111813573747877e-08,
+          1.594270599437949e-07,
+          2.4947953655876656e-07,
+          3.6819514465500146e-07,
+          5.246943007712465e-07,
+          7.309973556281964e-07,
+          1.0029450952918202e-06,
+          1.3614102763554218e-06,
+          1.8338913615819822e-06,
+          2.4566075538605644e-06,
+          3.2772502516663574e-06,
+          4.358592166511753e-06,
+          5.783213772598352e-06,
+          7.659679726542402e-06,
+          1.0130587153466544e-05,
+          1.3383013589494776e-05,
+          1.766201212981301e-05,
+          2.328792612720059e-05,
+          3.0678405912036114e-05,
+          4.037606745867618e-05,
+          5.3082670899860756e-05,
+          6.970040671528077e-05,
+          9.138019714395002e-05,
+          0.00011957563353559194,
+          0.00015609903791504273,
+          0.00020317299567352673,
+          0.0002634666740079278,
+          0.0003401020378264574,
+          0.0004366123542783279
+        ],
+        "ohmic": [
+          -2.845837222266781e-07,
+          -2.788920928772922e-07,
+          -2.7320045948174703e-07,
+          -2.675088221551857e-07,
+          -2.618171810118036e-07,
+          -2.561255361648389e-07,
+          -2.504338877265626e-07,
+          -2.447422358082697e-07,
+          -2.3905058052027077e-07,
+          -2.3335892197188507e-07,
+          -2.2766726027143482e-07,
+          -2.2197559552624232e-07,
+          -2.1628392784263002e-07,
+          -2.10592257325925e-07,
+          -2.049005840804697e-07,
+          -1.9920890820964005e-07,
+          -1.9351722981587517e-07,
+          -1.8782554900072086e-07,
+          -1.821338658648925e-07,
+          -1.764421805083636e-07,
+          -1.707504930304879e-07,
+          -1.6505880353016657e-07,
+          -1.5936711210607474e-07,
+          -1.5367541885696683e-07,
+          -1.479837238820857e-07,
+          -1.4229202728170948e-07,
+          -1.3660032915787963e-07,
+          -1.3090862961536901e-07,
+          -1.252169287629663e-07,
+          -1.1952522671517822e-07,
+          -1.1383352359448264e-07,
+          -1.0814181953430919e-07,
+          -1.0245011468297877e-07,
+          -9.675840920890849e-08,
+          -9.106670330748516e-08,
+          -8.537499721013969e-08,
+          -7.968329119632348e-08,
+          -7.399158560931177e-08,
+          -6.82998808770533e-08,
+          -6.26081775396737e-08,
+          -5.6916476285751625e-08,
+          -5.12247780001619e-08,
+          -4.553308382716828e-08,
+          -3.984139525362088e-08,
+          -3.414971421865781e-08,
+          -2.8458043258345164e-08,
+          -2.2766385696370036e-08,
+          -1.707474589542946e-08,
+          -1.1383129588595082e-08,
+          -5.691544316003023e-09,
+          0,
+          5.691490297825451e-09,
+          1.1382909364622216e-08,
+          1.7074234505656114e-08,
+          2.2765435807156726e-08,
+          2.8456473844750596e-08,
+          3.41472966632522e-08,
+          3.983783579816445e-08,
+          4.5528001036854125e-08,
+          5.1217673523155183e-08,
+          5.690669668654142e-08,
+          6.25948643180198e-08,
+          6.828190490984425e-08,
+          7.3967461113661e-08,
+          7.965106283913176e-08,
+          8.533209209977245e-08,
+          9.10097372047154e-08,
+          9.668293329239266e-08,
+          1.0235028552051215e-07,
+          1.0800997051640765e-07,
+          1.1365961106505224e-07,
+          1.1929611868503042e-07,
+          1.2491549909580082e-07,
+          1.3051261723062435e-07,
+          1.3608092232147825e-07,
+          1.416121409065566e-07,
+          1.470959577481484e-07,
+          1.5251972252829322e-07,
+          1.578682431400684e-07,
+          1.631237503137872e-07,
+          1.6826613380169052e-07
+        ],
+        "nonohmic": [
+          -2.2405012895927242e-07,
+          -2.091770791078788e-07,
+          -1.9501492761703193e-07,
+          -1.8154344851561986e-07,
+          -1.6874258357101412e-07,
+          -1.565924444294033e-07,
+          -1.450733148299969e-07,
+          -1.3416565289735459e-07,
+          -1.2385009351644597e-07,
+          -1.1410745079542804e-07,
+          -1.0491872062155418e-07,
+          -9.626508331610229e-08,
+          -8.812790639473712e-08,
+          -8.048874744031143e-08,
+          -7.332935709577206e-08,
+          -6.663168218557904e-08,
+          -6.037786897488394e-08,
+          -5.455026657665951e-08,
+          -4.913143051804778e-08,
+          -4.410412647841672e-08,
+          -3.9451334213014255e-08,
+          -3.515625167771361e-08,
+          -3.12022993721938e-08,
+          -2.7573124921041394e-08,
+          -2.4252607914751884e-08,
+          -2.122486503552418e-08,
+          -1.847425549616931e-08,
+          -1.5985386824511252e-08,
+          -1.3743121030486072e-08,
+          -1.1732581198936696e-08,
+          -9.939158558095369e-09,
+          -8.348520082265645e-09,
+          -6.946616697684924e-09,
+          -5.719692173539716e-09,
+          -4.654292796399973e-09,
+          -3.7372779470197046e-09,
+          -2.955831725047223e-09,
+          -2.2974758018996336e-09,
+          -1.7500837281154792e-09,
+          -1.3018969837777752e-09,
+          -9.415431466424038e-10,
+          -6.580566744843139e-10,
+          -4.4090297593106004e-10,
+          -2.800067124843396e-10,
+          -1.657856972282239e-10,
+          -8.919245734671903e-11,
+          -4.1766772128129326e-11,
+          -1.570491019180359e-11,
+          -3.956587018122432e-12,
+          -3.748119454422851e-13,
+          0,
+          3.7479985068379164e-13,
+          3.956326767085057e-12,
+          1.5703311014728975e-11,
+          4.176084742011031e-11,
+          8.917573448184695e-11,
+          1.657457967183643e-10,
+          2.799216672813015e-10,
+          4.407356593816187e-10,
+          6.577464172174823e-10,
+          9.40993210013809e-10,
+          1.3009559681944327e-09,
+          1.7485181566514107e-09,
+          2.294929934116686e-09,
+          2.9517689878250827e-09,
+          3.730896036457198e-09,
+          4.644401266206422e-09,
+          5.704536868441232e-09,
+          6.923629324583437e-09,
+          8.313963074196712e-09,
+          9.887624676083942e-09,
+          1.1656293588837086e-08,
+          1.363096250767223e-08,
+          1.5821567406244336e-08,
+          1.8236506249477012e-08,
+          2.0882027854912987e-08,
+          2.376148177784712e-08,
+          2.6874440525441954e-08,
+          3.0215740896117256e-08,
+          3.3774543009583086e-08,
+          3.7533567452823305e-08
+        ],
+        "relative_error": [
+          4.336892147177558,
+          3.4371420140345625,
+          2.8679553935240585,
+          2.4479652989497187,
+          1.9042417022697988,
+          1.5984691499909462,
+          1.3210299155530372,
+          0.7032825059265063,
+          0.412483035155819,
+          0.11379862456663728,
+          0.22097849102510012,
+          0.044214701887625524,
+          0.30973207118685053,
+          0.059073814397605076,
+          0.0008340108032912577,
+          0.14053955049642353,
+          0.091276858385208,
+          0.6603330295350288,
+          0.8712708590335653,
+          1.4541110137727353,
+          1.6555632192520215,
+          1.8207886012329046,
+          2.414806818146536,
+          2.7492506919849076,
+          3.258200888854544,
+          3.745640002317353,
+          4.073083201317903,
+          4.528737656777181,
+          4.955490502870609,
+          5.111716489839892,
+          7.4273325669513115,
+          6.739358108357071,
+          6.40928116366468,
+          6.067873022357725,
+          5.755763740146872,
+          5.463315835642657,
+          4.943642282844014,
+          7.48218399804102,
+          5.2327692358904025,
+          7.181873080085574,
+          6.900125994093882,
+          6.475640849366476,
+          6.271926552594725,
+          5.89487949150237,
+          1.488836320323677,
+          5.136485911021964,
+          0.38100575286497745,
+          2.311322907096345,
+          8.249931621962984,
+          2.3767607807264173,
+          99.99396563324254,
+          19.140443501312443,
+          20.110540110513337,
+          8.379805931005393,
+          6.634130458158692,
+          5.578561112878816,
+          4.802525430381363,
+          3.9992481187291595,
+          2.8600010377282294,
+          1.597095204648372,
+          0.16456636990932028,
+          1.5577186515049957,
+          3.243745920938944,
+          4.856580642126182,
+          6.481908650734053,
+          8.066904995569317,
+          9.613952215140884,
+          11.032904247721648,
+          12.744361716521388,
+          13.696305763372344,
+          14.500317556192869,
+          15.090356772543062,
+          15.423473086146732,
+          15.438224892332311,
+          15.245819840225924,
+          14.472765925439585,
+          12.698382483466897,
+          11.199829765674393,
+          8.769979933569143,
+          5.73436672581872,
+          2.058709870047278
+        ]
+      }
+    }
+  }
+}

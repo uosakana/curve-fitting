@@ -1,0 +1,117 @@
+{
+  "dataset_id": "fit_dataset_20260603_142907",
+  "created_at": "2026-06-03T14:29:07",
+  "record_dir": "C:\\Users\\lky40\\OneDrive\\桌面\\fitting\\fitting\\app_data\\records",
+  "output_csv": "C:\\Users\\lky40\\OneDrive\\桌面\\fitting\\fitting\\app_data\\datasets\\fit_dataset_20260603_142907.csv",
+  "schema": {
+    "feature_columns": [
+      "curve_points",
+      "voltage_min",
+      "voltage_max",
+      "voltage_span",
+      "current_abs_min",
+      "current_abs_max",
+      "current_abs_log_span",
+      "reverse_points",
+      "forward_points",
+      "current_sign_changes",
+      "reverse_log_slope",
+      "forward_log_slope",
+      "mean_error",
+      "max_error",
+      "median_error",
+      "negative_mean_error",
+      "positive_mean_error",
+      "reverse_mean_error",
+      "near_zero_mean_error",
+      "forward_mean_error",
+      "high_forward_mean_error",
+      "diode_component_pct",
+      "ohmic_component_pct",
+      "nonohmic_component_pct",
+      "negative_nonohmic_to_ohmic",
+      "boundary_hit_count",
+      "warning_count",
+      "advice_count",
+      "selected_series_point_count",
+      "candidate_count",
+      "candidate_renderable_count",
+      "candidate_diagnostic_only_count",
+      "candidate_promotable_count",
+      "primary_candidate_rank",
+      "top_candidate_rank",
+      "top_candidate_mean_error",
+      "top_candidate_max_error"
+    ],
+    "label_columns": [
+      "accepted",
+      "quality",
+      "confidence",
+      "hypothesis",
+      "product_fit_mode",
+      "fit_strategy",
+      "selected_display_mode",
+      "selected_result_source",
+      "selected_result_label",
+      "selected_candidate_rank",
+      "sweep_strategies",
+      "scan_m",
+      "scan_n",
+      "compare_models",
+      "post_fit_models",
+      "m",
+      "best_scan_m",
+      "worst_region",
+      "top_advice_level",
+      "top_advice_title"
+    ],
+    "context_columns": [
+      "sample_id",
+      "sample_batch",
+      "sample_role",
+      "sample_structure",
+      "sample_process",
+      "expected_outcome",
+      "comparison_group",
+      "external_evidence"
+    ]
+  },
+  "filters": {
+    "include_rejected": true,
+    "default_candidate_rule": "accepted=true OR quality in {good, acceptable}"
+  },
+  "split": {
+    "method": "deterministic_group_hash",
+    "group_priority": [
+      "comparison_group",
+      "sample_batch",
+      "sample_id",
+      "record_id"
+    ],
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15000000000000005,
+    "counts": {
+      "test": 10,
+      "val": 5,
+      "train": 5
+    }
+  },
+  "counts": {
+    "raw_records": 20,
+    "candidate_records": 20,
+    "quality": {
+      "acceptable": 9,
+      "poor": 10,
+      "good": 1
+    },
+    "hypothesis": {
+      "leakage_reduced": 9,
+      "none": 11
+    },
+    "fit_strategy": {
+      "auto": 11,
+      "quick_global": 9
+    }
+  }
+}
