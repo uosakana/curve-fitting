@@ -1,0 +1,14 @@
+Fitted parameters:
+J0 = 6.155269e-08 A
+Rs = 3.680842e+02 Ohm
+Rsh = 1.000000e+10 Ohm
+k = 5.746180e-07
+
+Fit error statistics:
+Mean relative error: 6.25%
+Max relative error: 13.04%
+Median relative error: 5.80%
+Effective points: 80
+Excluded near-zero/noise-floor points: 1
+Negative-voltage mean relative error: 6.34%
+Positive-voltage mean relative error: 6.10%
